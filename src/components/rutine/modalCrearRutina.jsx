@@ -47,10 +47,14 @@ export default function ModalCrear() {
     };
 
     const guardarRutina = async () => {
+        const creadorId = localStorage.getItem('userId');
+        if(creadorId === null){
+            creadorId = 0;
+        }
         const body = {
             nombreRutina: nombre,
             nivel: nivel,
-            creador: 1, // TIP: Aquí podrías usar el ID de tu login
+            creador: creadorId,
             ejercicios: listaEjercicios 
         };
 

@@ -1,7 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 
-const mysql = require('mysql2/promise')
+const mysql = require('mysql2/promise');
+const e = require('cors');
 const app = express()
 
 const db = mysql.createPool({
@@ -154,5 +155,36 @@ app.post('/nuevaRutina', async (req, res) => {
         connection.release();
     }
 });
+
+app.patch('/editarRutina/:id', async (req, res) => {
+    const { id } = req.params;
+    const { nombreRutina, nivel, creador, ejercicios } = req.body; 
+    const connection = await db.getConnection();
+
+    try {
+        await connection.beginTransaction();
+
+        const sqlUpdateRutina = 'UPDATE rutinas SET nombre_rutina = ?, nivel = ?, creador = ? WHERE id = ?';
+        // Usamos las variables que vienen del body corregido
+        await connection.execute(sqlUpdateRutina, [nombreRutina, nivel, creador, id]);
+
+        await connection.execute('DELETE FROM rutina_detalle WHERE rutina_id = ?', [id]);
+
+        const sqlInsertEjercicios = 'INSERT INTO rutina_detalle (rutina_id, ejercicio_id, series, repeticiones, orden) VALUES (?, ?, ?, ?, ?)';
+        for (const ej of ejercicios) {
+            await connection.execute(sqlInsertEjercicios, [id, ej.ejercicio_id, ej.series, ej.repeticiones, 0]);
+        }
+
+        await connection.commit(); // IMPORTANTE
+        res.status(200).json({ success: true, message: 'Editado con éxito' });
+    } catch (error) {
+        await connection.rollback();
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Error interno' });
+    } finally {
+        connection.release();
+    }
+});
+
 
 app.listen(3001, () => console.log("Servidor corriendo en el puerto 3001"));
