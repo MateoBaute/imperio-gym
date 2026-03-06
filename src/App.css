@@ -1,0 +1,164 @@
+
+
+
+/* ------------------------------
+   Animaciones al cargar la página
+   ------------------------------ */
+:root {
+  --enter-duration: 720ms;
+  --enter-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes soft-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Anima el contenido de cada ruta (tu App ya tiene <main>) */
+main > * {
+  animation: fade-up var(--enter-duration) var(--enter-ease) both;
+}
+
+/* Stagger simple dentro del contenido */
+main h1,
+main h2 {
+  animation: fade-up 640ms var(--enter-ease) both;
+  animation-delay: 80ms;
+}
+
+main p {
+  animation: fade-up 720ms var(--enter-ease) both;
+  animation-delay: 160ms;
+  font-size: 1.5rem;
+}
+
+.btn-primary {
+  animation: soft-pop 520ms var(--enter-ease) both;
+  animation-delay: 240ms;
+}
+
+/* Si también quieres que el header entre suave (aunque viva en otro CSS) */
+.header-nav {
+  animation: fade-down 520ms var(--enter-ease) both;
+}
+
+/* Accesibilidad: respeta la preferencia de reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  main > *,
+  main h1,
+  main h2,
+  main p,
+  .btn-primary,
+  .header-nav {
+    animation: none !important;
+  }
+}
+
+/* Ejemplo de un Hero Section (La parte de arriba) */
+.hero {
+  padding: 80px 20px;
+  text-align: center;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+              url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1350&q=80'); /* Imagen de gym de fondo */
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: -1px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: -1px;
+  text-align: center;
+}
+
+p {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+span {
+  color: var(--primary-red); /* El toque de rojo en el texto */
+  text-align: center;
+}
+
+/* Botón de Llamada a la Acción (CTA) */
+.btn-primary {
+  background-color: var(--primary-red);
+  color: var(--pure-white);
+  padding: 12px 28px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  margin-top: 20px;
+  text-align: center;
+  display: block;
+  margin: 1.5rem auto;
+}
+
+.btn-primary:hover {
+  background-color: #c32f3a; /* Un rojo un poco más oscuro al pasar el mouse */
+  transform: scale(1.05);
+}
+
+/* Sección de tarjetas (Entrenamientos/Clases) */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: var(--dark-gray);
+  padding: 20px;
+  border-left: 4px solid var(--primary-red); /* Detalle elegante en rojo */
+  border-radius: 8px;
+}
+

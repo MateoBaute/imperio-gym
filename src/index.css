@@ -1,0 +1,37 @@
+/* Definición de variables para consistencia */
+:root {
+  --primary-red: #e63946;    /* Un rojo vibrante pero profesional */
+  --deep-black: #121212;     /* Un negro "suave" para no cansar la vista */
+  --pure-white: #ffffff;
+  --light-gray: #f4f4f4;
+  --dark-gray: #1e1e1e;      /* Para tarjetas o secciones secundarias */
+  --font-main: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--deep-black);
+  color: var(--pure-white);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+main {
+  max-width: 70rem;
+  margin: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}

@@ -1,0 +1,271 @@
+/*Region of styles Header*/
+header {
+    width: 100%;
+    height: 100px;
+    background-color: var(--dark-gray);
+}
+
+.header-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 50rem;
+    gap: 5rem;
+    margin: auto;
+
+}
+
+.header-nav ul {
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: auto;
+
+}
+
+.header-nav li {
+    color: var(--pure-white);
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.header-nav li:hover {
+    color: var(--primary-red);
+    transform: scale(1.03);
+}
+
+.logo-img {
+    max-width: 4rem;
+    max-height: 6rem;
+    margin: 1rem 0 1rem 7rem;
+    transition: 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
+
+/*End region*/
+
+/*Region of styles ModalLogin*/
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modalLogin {
+    background-color: #121212;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 30rem;
+    height: 35rem;
+}
+
+.contentLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.midalLogin h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.modalLogin p {
+    font-size: 1rem;
+}
+
+.modalLogin label {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    font-weight: 300;
+}
+
+.modalLogin input {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1.2rem;
+    border-radius: 0.8rem;
+    background-color: #524e4e;
+    border: 1px solid var(--primary-red);
+    margin-bottom: 0.5rem;
+}
+
+.modalLogin input:focus {
+    background-color: #5e3a3d;
+}
+
+.modalLogin button {
+    width: 50%;
+    margin: 1rem auto;
+    border-radius: 0.8rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/*End region*/
+
+#ImgGymOne {
+    width: 30rem;
+    margin: 3rem auto;
+    position: absolute;
+    right: 29%;
+}
+
+/*Region About*/
+.About p {
+    margin-bottom: 2rem;
+}
+
+/*End Region*/
+.shop p {
+    margin-bottom: 2rem;
+}
+
+/*Region Shop*/
+
+#btn-Login {
+    margin: 0;
+}
+
+/*Region Rutinas*/
+.btn-rutinas {
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--primary-red);
+    color: white;
+    font-size: 1rem;
+    margin: 1rem auto;
+}
+
+.contenidoModal {
+    background-color: #121212;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 30rem;
+    max-height: 85vh;
+    /* IMPORTANTE: No puede ser más alto que el 85% de la pantalla */
+    overflow-y: auto;
+    /* El scroll aparece solo si es necesario */
+    border: 1px solid #333;
+}
+
+/* Opcional: Personaliza la barrita de scroll para que combine con tu modo oscuro */
+.contenidoModal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.contenidoModal::-webkit-scrollbar-thumb {
+    background: var(--primary-red);
+    border-radius: 10px;
+}
+
+.contenidoModal select {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 12px;
+    background-color: #524e4e;
+    border: 1px solid var(--primary-red);
+    color: gray;
+    font-size: 1rem;
+}
+
+#btn-rutinas {
+    font-size: 1rem;
+    border-radius: 12px;
+}
+
+.inputRutinas {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1.2rem;
+    border-radius: 0.8rem;
+    background-color: #524e4e;
+    border: 1px solid var(--primary-red);
+    margin-bottom: 0.5rem;
+}
+
+.inputRutinas input:focus {
+    background-color: #5e3a3d;
+}
+
+#todosLosEjercicios {
+    padding: 1rem;
+    border: 0.16rem solid var(--dark-gray);
+    margin: 0.2rem;
+    border-radius: 12px;
+}
+
+
+.trRutinas {
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+.thRutinas {
+    padding: 10px;
+    border:  1px solid #524e4e;
+}
+
+.spanRutinas {
+    background: #eee;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.tarjeta-rutina {
+    margin-bottom: 50px;
+}
+
+
+.header-rutina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.tabla-ejercicios {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+
+.td-ejercicio {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #524e4e;
+}
+
+
+.td-dato {
+    padding: 8px;
+    border: 1px solid #524e4e;
+}
+
+.theadRutinas {
+    width: '100%';
+    border-collapse: 'collapse';
+    margin-top: '10px';
+}
