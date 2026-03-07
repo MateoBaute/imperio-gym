@@ -47,7 +47,7 @@ export default function ModalCrear() {
     };
 
     const guardarRutina = async () => {
-        const creadorId = localStorage.getItem('userId');
+        let creadorId = localStorage.getItem('userId');
         if(creadorId === null){
             creadorId = 0;
         }
@@ -65,7 +65,9 @@ export default function ModalCrear() {
                 body: JSON.stringify(body)
             });
             const data = await res.json();
-            if(data.success) alert("¡Rutina guardada con éxito!");
+            if(data.success)
+                alert("¡Rutina guardada con éxito!")
+                window.location.reload();
         } catch (error) {
             alert("Error al conectar con el servidor");
         }

@@ -11,9 +11,10 @@ export default function editRutinas({ rutinas, idRutinaEditar }) {
 
     function buscarRutina() {
         const rutinaBuscada = rutinas.find(rutina => rutina.id === idRutinaEditar);
+        console.log(rutinaBuscada);
         if (rutinaBuscada) {
             setRutinaEncontrada(rutinaBuscada);
-            // CORRECCIÓN: Usa los nombres exactos que vienen de tu BD
+            
             setNombre(rutinaBuscada.nombre);
             setNivel(rutinaBuscada.nivel);
             setListaEjercicios(rutinaBuscada.ejercicios);
@@ -34,19 +35,36 @@ export default function editRutinas({ rutinas, idRutinaEditar }) {
     const updateEjercicio = (index, field, value) => {
         const nuevaLista = [...listaEjercicios];
 
-        nuevaLista[index] = { ...nuevaLista[index], [field]: value };
+        // Campos que deben ser enteros según la BBDD
+        let val = value;
+        if (field === 'series' || field === 'repeticiones' || field === 'ejercicio_id') {
+            // parseInt; si no se puede, usar 0 para evitar NaN
+            val = parseInt(value, 10);
+            if (isNaN(val)) val = 0;
+        }
+
+        nuevaLista[index] = { ...nuevaLista[index], [field]: val };
         setListaEjercicios(nuevaLista);
     };
 
     async function guardarRutina() {
-        console.log("Guardando rutina con datos:", { nombre, nivel, listaEjercicios });
-        const creadorId = localStorage.getItem('userId');
+        // Enviar solo los campos que el backend espera
+        const ejerciciosEnviar = listaEjercicios.map(ej => ({
+            ejercicio_id: parseInt(ej.ejercicio_id, 10) || 0,
+            series: parseInt(ej.series, 10) || 0,
+            repeticiones: parseInt(ej.repeticiones, 10) || 0
+        }));
+
+        console.log("Guardando rutina con datos:", { nombre, nivel, ejerciciosEnviar });
+        let creadorId = localStorage.getItem('userId');
+        // asegurar que creadorId sea entero
+        creadorId = parseInt(creadorId, 10) || 0;
         try {
             const body = {
                 nombreRutina: nombre, // Coincide con el back corregido
                 nivel: nivel,
                 creador: creadorId,
-                ejercicios: listaEjercicios
+                ejercicios: ejerciciosEnviar
             };
             console.log("Enviando al backend:", body);
 
@@ -89,15 +107,16 @@ export default function editRutinas({ rutinas, idRutinaEditar }) {
                     <select defaultValue={rutinaEncontrada.nivel} onChange={(e) => setNivel(e.target.value)}>
                         <option value="Principiante">Principiante</option>
                         <option value="Intermedio">Intermedio</option>
-                        <option value="Avanzado">Avanzado</option>
+                        <option value="Experto">Experto</option>
                     </select>
 
                     {/* Mapeo de la rutina encontrada originalmente */}
-                    {rutinaEncontrada.ejercicios.map((ejercicio, index) => (
+                    {rutinaEncontrada.ejercicios.map((ej, index) => (
                         <div key={index} className="ejercicio-row">
                             <label>Ejercicio {index + 1}: </label>
                             <select onChange={(e) => updateEjercicio(index, 'ejercicio_id', e.target.value)}>
-                                <option value={ejercicio.ejercicio_id}>{ejercicio.nombre}</option>
+                                <option value={ej.ejercicio_id}>{ej.nombre}</option>
+                                
                                 {ejerciciosCatalogo.map((ej) => (
                                     <option key={ej.id} value={ej.id}>{ej.nombre}</option>
                                 ))}
@@ -108,7 +127,7 @@ export default function editRutinas({ rutinas, idRutinaEditar }) {
                                     <label>Series: </label>
                                     <input
                                         className="inputRutinas"
-                                        defaultValue={ejercicio.series}
+                                        defaultValue={ej.series}
                                         onChange={(e) => updateEjercicio(index, 'series', e.target.value)}
                                     />
                                 </div>
@@ -116,7 +135,7 @@ export default function editRutinas({ rutinas, idRutinaEditar }) {
                                     <label>Reps: </label>
                                     <input
                                         className="inputRutinas"
-                                        defaultValue={ejercicio.repeticiones}
+                                        defaultValue={ej.repeticiones}
                                         onChange={(e) => updateEjercicio(index, 'repeticiones', e.target.value)}
                                     />
                                 </div>

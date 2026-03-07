@@ -2,7 +2,6 @@ const express = require('express')
 const cors = require('cors')
 
 const mysql = require('mysql2/promise');
-const e = require('cors');
 const app = express()
 
 const db = mysql.createPool({
@@ -68,26 +67,33 @@ app.post('/login', async (req, res) => {
 
 app.get('/rutinas', async (req, res) => {
     try {
+        const connection = await db.getConnection(); // Obtenemos una conexión
+        
+        // 1. AMPLIAMOS EL LÍMITE DE CARACTERES PARA ESTA SESIÓN
+        await connection.execute("SET SESSION group_concat_max_len = 10000");
+
         const sql = `SELECT 
-            r.id, -- <--- AGREGAMOS EL ID AQUÍ
+            r.id, 
             r.nombre_rutina, 
             r.nivel, 
             CONCAT('[', 
                 GROUP_CONCAT(
                     JSON_OBJECT(
+                        'ejercicio_id', e.id,
                         'nombre', e.nombre, 
                         'series', rd.series, 
                         'repeticiones', rd.repeticiones
                     )
-                ), 
-            ']') AS ejercicios
+                ),
+                ']') AS ejercicios
         FROM rutinas r
         JOIN rutina_detalle rd ON r.id = rd.rutina_id
         JOIN ejercicios e ON rd.ejercicio_id = e.id
         GROUP BY r.id, r.nombre_rutina, r.nivel
         ORDER BY r.nombre_rutina;`;
 
-        const [rows] = await db.execute(sql);
+        const [rows] = await connection.execute(sql);
+        connection.release(); // Liberamos la conexión
 
         const dataFormateada = rows.map(row => ({
             ...row,
@@ -123,7 +129,17 @@ app.get('/ejercicios', async (req, res) => {
 })
 
 app.post('/nuevaRutina', async (req, res) => {
-    const { nombreRutina, nivel, creador, ejercicios } = req.body;
+    // asegurarse de que los campos numéricos llegan como números válidos
+    let { nombreRutina, nivel, creador, ejercicios } = req.body;
+    creador = parseInt(creador, 10) || null;
+
+    if (!Array.isArray(ejercicios)) ejercicios = [];
+    ejercicios = ejercicios.map(ej => ({
+        ejercicio_id: parseInt(ej.ejercicio_id, 10) || null,
+        series: parseInt(ej.series, 10) || 0,
+        repeticiones: parseInt(ej.repeticiones, 10) || 0
+    }));
+
     const connection = await db.getConnection();
 
     try {
@@ -157,22 +173,38 @@ app.post('/nuevaRutina', async (req, res) => {
 });
 
 app.patch('/editarRutina/:id', async (req, res) => {
-    const { id } = req.params;
-    const { nombreRutina, nivel, creador, ejercicios } = req.body; 
+    // parsear id de parámetro y datos numéricos del cuerpo
+    let rutinaId = parseInt(req.params.id, 10);
+    if (isNaN(rutinaId)) {
+        return res.status(400).json({ success: false, message: 'ID de rutina inválido' });
+    }
+
+    let { nombreRutina, nivel, creador, ejercicios } = req.body;
+    creador = parseInt(creador, 10);
+    if (!creador) {
+        return res.status(400).json({ success: false, message: "creador inválido" });
+    }
+    if (!Array.isArray(ejercicios)) ejercicios = [];
+    ejercicios = ejercicios.map(ej => ({
+        ejercicio_id: parseInt(ej.ejercicio_id, 10),
+        series: parseInt(ej.series, 10),
+        repeticiones: parseInt(ej.repeticiones, 10)
+    }));
+
     const connection = await db.getConnection();
 
     try {
         await connection.beginTransaction();
 
         const sqlUpdateRutina = 'UPDATE rutinas SET nombre_rutina = ?, nivel = ?, creador = ? WHERE id = ?';
-        // Usamos las variables que vienen del body corregido
-        await connection.execute(sqlUpdateRutina, [nombreRutina, nivel, creador, id]);
+        // Usamos las variables corregidas (rutinaId en lugar de id)
+        await connection.execute(sqlUpdateRutina, [nombreRutina, nivel, creador, rutinaId]);
 
-        await connection.execute('DELETE FROM rutina_detalle WHERE rutina_id = ?', [id]);
+        await connection.execute('DELETE FROM rutina_detalle WHERE rutina_id = ?', [rutinaId]);
 
         const sqlInsertEjercicios = 'INSERT INTO rutina_detalle (rutina_id, ejercicio_id, series, repeticiones, orden) VALUES (?, ?, ?, ?, ?)';
         for (const ej of ejercicios) {
-            await connection.execute(sqlInsertEjercicios, [id, ej.ejercicio_id, ej.series, ej.repeticiones, 0]);
+            await connection.execute(sqlInsertEjercicios, [rutinaId, ej.ejercicio_id, ej.series, ej.repeticiones, null]);
         }
 
         await connection.commit(); // IMPORTANTE
