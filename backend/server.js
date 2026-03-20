@@ -218,5 +218,18 @@ app.patch('/editarRutina/:id', async (req, res) => {
     }
 });
 
+app.delete('/rutinaEliminar/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        // Ejecutas las 3 sentencias SQL (Detalle, Usuario_Rutina y Rutina)
+        await db.query("DELETE FROM rutina_detalle WHERE rutina_id = ?", [id]);
+        await db.query("DELETE FROM usuario_rutina WHERE rutina_id = ?", [id]);
+        await db.query("DELETE FROM rutinas WHERE id = ?", [id]);
+        
+        res.status(200).send("Eliminado");
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
 app.listen(3001, () => console.log("Servidor corriendo en el puerto 3001"));

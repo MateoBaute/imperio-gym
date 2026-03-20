@@ -75,7 +75,7 @@ export default function RenderRutinas() {
             {admin ? (<button className='btn-rutinas' onClick={() => setShowModal(true)}>Crear Rutina</button>) : null}
 
             {showModal ? (<ModalRutinas />) : null}
-            {editRutina ? (<ModalEditRutinas rutinas={rutinas}  idRutinaEditar={editRutinaId} />) : null}
+            {editRutina ? (<ModalEditRutinas rutinas={rutinas}   idRutinaEditar={editRutinaId} />) : null}
 
             <Rutinas  enviarId={(id) => seteditRutinaId(id)}  activarEdicion={() => setEditRutina(true)} lista={rutinas} />
         </div>

@@ -97,8 +97,9 @@ export default function editRutinas({ rutinas, idRutinaEditar }) {
                 <div className="contenidoModal">
                     <h2>Editar Rutina</h2>
 
-                    <label>Nombre de la rutina: </label>
+                    <label >Nombre de la rutina: </label>
                     <input
+                        className="inputRutinas"
                         defaultValue={rutinaEncontrada.nombre}
                         onChange={(e) => setNombre(e.target.value)}
                     />
