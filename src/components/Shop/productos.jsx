@@ -4,7 +4,7 @@ import ModalProd from './modalPorductos'
 
 // {productos}
 export default function Products() {
-    const [show, setShow] = useState(false)
+    const [selectedProduct, setSelectedProduct] = useState(null);
     const productos = [
         {
             id: 1,
@@ -26,8 +26,11 @@ export default function Products() {
 
     const openModal = (id) => {
         const resultado = productos.find((p) => p.id === id);
+        setSelectedProduct(resultado);
 
     }
+    
+    const closeModal = () => setSelectedProduct(null);
 
     return (
         <div className="ShopSection">
@@ -38,10 +41,12 @@ export default function Products() {
                         <img src={product.img1} />
                         <p>{product.description}</p>
                     </div>
-                    <button onClick={openModal(product.id)} className="btn-primary">Comprar</button>
+                    <button onClick={() => openModal(product.id)} className="btn-primary">Comprar</button>
                 </div>
             ))}
-            
+            {selectedProduct && (
+                <ModalProd product={selectedProduct} onClose={closeModal} />
+            )}
         </div>
     );
 }
