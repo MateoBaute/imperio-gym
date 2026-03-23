@@ -73,7 +73,6 @@ export default function ModalLogin({ onClose }) {
 
     return createPortal(
         <div id="divModal" className="modal-wrapper">
-            <div className="modal-overlay" onClick={onClose}></div> {/* Para cerrar al hacer click fuera */}
             {success ? (
                 <ModalLoginSuccess />
             ) : (

@@ -319,7 +319,7 @@ header {
 }
 
 .modalProds{
-    background-color: black;
+    background-color: #111111;
     width: 25rem;
     display: flex;
     flex-direction: column;
@@ -382,4 +382,10 @@ header {
     max-width: 40%;
     width: 40%;
     margin: 1rem 30%;
+}
+
+#SizeCont, #ColorCont{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
