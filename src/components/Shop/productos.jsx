@@ -10,7 +10,7 @@ export default function Products() {
         {
             id: 1,
             name: 'Remeras Imperio Gym',
-            price: 2100,
+            price: 1,
             description: 'Remera tela de anti-transpirante, ideal para el Gym.',
             img: 'https://basuy.vtexassets.com/unsafe/1440x0/center/middle/https%3A%2F%2Fbasuy.vtexassets.com%2Farquivos%2Fids%2F832259%2F082049_1.jpg%3Fv%3D639082315019300000',
             size: ['XS', 'S', 'M', 'L', 'XL'],
@@ -19,7 +19,7 @@ export default function Products() {
         {
             id: 2,
             name: 'Chaqueta Imperio Gym',
-            price: 1500,
+            price: 2,
             description: 'Chaqueta ligera resistente al viento con forro térmico interno.',
             img: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRpPv2BWih2QgBNHtbeGesLvqr0ryEmsLQORaxwcC5KNmUsZ4NuTiAUIItJDNrpSoMPlJb3lvFj9t9A-rUAwv2_evBs4VvClxMEagU_kqZfqa_7VDhFHXH5Y91Xc9xJY9RWWwmhfFE&usqp=CAc',
             size: ['XS', 'S', 'M', 'L', 'XL'],
@@ -64,6 +64,7 @@ export default function Products() {
                         <h2>{product.name}</h2>
                         <img src={product.img} />
                         <p>{product.description}</p>
+                        <p><strong>Precio: ${product.price}</strong></p>
                     </div>
                     <button onClick={() => openModal(product.id)} className="btn-primary">Ver Producto</button>
                 </div>
@@ -76,3 +77,4 @@ export default function Products() {
 }
 
 
+//La primera guerra mundial es Hisoria historica

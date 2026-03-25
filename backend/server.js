@@ -232,4 +232,56 @@ app.delete('/rutinaEliminar/:id', async (req, res) => {
     }
 });
 
+require('dotenv').config();
+const { MercadoPagoConfig, Preference } = require('mercadopago');
+
+// Configura con tu Access Token de prueba
+const client = new MercadoPagoConfig({ 
+    accessToken: process.env.MP_ACCESS_TOKEN // Tu token en el archivo .env
+});
+
+app.post("/create_preference", async (req, res) => {
+    try {
+        const { name, price } = req.body;
+
+        // Validación básica
+        if (!name || !price) {
+            return res.status(400).json({ error: "Faltan datos: name o price" });
+        }
+
+        const body = {
+            items: [
+                {
+                    title: name,
+                    quantity: 1,
+                    unit_price: Number(price),
+                    currency_id: "ARS",
+                },
+            ],
+            back_urls: {
+                success: "https://www.google.com", 
+                failure: "http://localhost:3001/failure",
+                pending: "http://localhost:3001/pending",
+            },
+            auto_return: "approved",
+        };
+
+        const preference = new Preference(client);
+        const result = await preference.create({ body });
+
+        // Enviamos el init_point para que el front redireccione
+        res.json({ 
+            id: result.id, 
+            init_point: result.init_point 
+        });
+
+    } catch (error) {
+        console.error("ERROR EN MP:", error);
+        res.status(500).json({ 
+            error: "Error al crear la preferencia",
+            details: error.message 
+        });
+    }
+});
+
 app.listen(3001, () => console.log("Servidor corriendo en el puerto 3001"));
