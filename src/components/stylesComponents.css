@@ -1,4 +1,10 @@
 /*Region of styles Header*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 header {
     width: 100%;
     height: 100px;
@@ -10,7 +16,7 @@ header {
     justify-content: center;
     align-items: center;
     max-width: 50rem;
-    gap: 5rem;
+    gap: 2rem;
     margin: auto;
 
 }
@@ -36,10 +42,17 @@ header {
     transform: scale(1.03);
 }
 
+#CloseSession{
+    color: var( --primary-red);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
 .logo-img {
     max-width: 4rem;
     max-height: 6rem;
-    margin: 1rem 0 1rem 7rem;
+    margin: 1.2rem 0 0.8rem 6rem;
+    border-radius: 100%;
     transition: 0.3s ease;
 }
 
@@ -69,8 +82,10 @@ header {
     background-color: #121212;
     padding: 2rem;
     border-radius: 1rem;
-    width: 30rem;
-    height: 35rem;
+    width: min(30rem, 92vw);
+    max-height: 90vh;
+    height: auto;
+    overflow-y: auto;
 }
 
 .contentLogin {
@@ -160,7 +175,7 @@ header {
     background-color: #121212;
     padding: 2rem;
     border-radius: 1rem;
-    width: 30rem;
+    width: min(30rem, 92vw);
     max-height: 85vh;
     /* IMPORTANTE: No puede ser más alto que el 85% de la pantalla */
     overflow-y: auto;
@@ -265,9 +280,9 @@ header {
 }
 
 .theadRutinas {
-    width: '100%';
-    border-collapse: 'collapse';
-    margin-top: '10px';
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
 }
 
 /*Shop region*/
@@ -320,13 +335,13 @@ header {
 
 .modalProds{
     background-color: #111111;
-    width: 25rem;
+    width: min(25rem, 92vw);
     display: flex;
     flex-direction: column;
     max-height: 90vh;
     padding: 2rem;
     z-index: 9999;
-    overflow-y:scroll;
+    overflow-y: auto;
     border-radius: 0.8rem;
 }
 
@@ -388,4 +403,124 @@ header {
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        height: auto;
+        padding: 0.75rem 0;
+    }
+
+    .header-nav {
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        padding: 0 1rem;
+    }
+
+    .header-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .header-nav li {
+        font-size: 1.1rem;
+    }
+
+    #CloseSession{
+        font-size: 1rem;
+    }
+
+    .logo-img {
+        margin: 1rem 0;
+        max-width: 3rem;
+        max-height: 4rem;
+    }
+
+    #ImgGymOne {
+        position: static;
+        right: auto;
+        width: min(80vw, 30rem);
+        margin: 2rem auto;
+        display: block;
+    }
+
+    .modalLogin button {
+        width: 80%;
+    }
+
+    .ShopSection {
+        gap: 1rem;
+    }
+
+    .CardShop {
+        max-width: 92vw;
+        margin: 2rem 0;
+    }
+
+    .CardShop img {
+        max-width: 10rem;
+        margin: 1.2rem 25%;
+    }
+
+    .modalProds {
+        padding: 1.5rem;
+    }
+
+    .close-btn {
+        width: 3.5rem;
+        padding: 0.3rem;
+    }
+
+    .sizeContainer {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .size-option,
+    .color-option {
+        width: 6rem;
+        font-size: 0.95rem;
+    }
+
+
+    .modalProds img {
+        max-width: 60%;
+        width: 60%;
+        margin: 1rem 20%;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-nav li {
+        font-size: 0.95rem;
+    }
+
+    .header-nav ul {
+        gap: 0.7rem;
+    }
+
+    .modalLogin {
+        padding: 1.2rem;
+    }
+
+    .contenidoModal {
+        padding: 1.2rem;
+    }
+
+    .modalProds {
+        padding: 1.2rem;
+    }
+
+    .size-option,
+    .color-option {
+        width: 5.2rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    #ImgGymOne {
+        width: 95vw;
+    }
 }

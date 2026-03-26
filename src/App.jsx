@@ -4,7 +4,7 @@ import Header from './components/Home/header'
 import Home from './pages/Home'
 import Nosotros from './pages/Nosotros'
 import Rutinas from './pages/Rutinas'
-import Shop from './pages/Shop'
+import Tienda from './pages/Tienda'
 import ModalLogin from './components/Home/modalLogin' // Importación añadida
 import { useState, useEffect } from 'react'
 
@@ -43,7 +43,7 @@ function App() {
           <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/rutinas" element={<Rutinas onClose={handleCloseModal} />} />
-          <Route path="/shop" element={<Shop />} />
+          <Route path="/shop" element={<Tienda />} />
         </Routes>
       </main>
     </BrowserRouter>

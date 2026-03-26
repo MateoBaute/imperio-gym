@@ -20,14 +20,14 @@ export default function Header({isLoggedIn, handleLogin}) {
                     </Link>
                 </div>
                 <ul>
-                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/">Inicio</Link></li>
                     <li><Link to="/nosotros">Nosotros</Link></li>
                     <li><Link to="/rutinas">Rutinas</Link></li>
-                    <li><Link to="/shop">Shop</Link></li>
+                    <li><Link to="/shop">Tienda</Link></li>
                     {!isLoggedIn ? (
                         <button id='btn-Login' className="btn-primary" onClick={handleLogin}>logIn</button>
                     ) : (
-                        <li onClick={CloseSession} style={{color: 'red'}}>Exit</li>
+                        <li onClick={CloseSession} id='CloseSession' >Salir</li>
                     )}
                 </ul>
             </nav>

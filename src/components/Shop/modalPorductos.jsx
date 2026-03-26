@@ -6,7 +6,7 @@ export default function ModalProd({ product, onClose }) {
     const [size, setSize] = useState('');
     const [color, setColor] = useState('');
 
-    async function guardarProducto() {
+    async function pagarProducto() {
         // if(!isNaN(product.price)) {
         //     alert(`Producto: ${product.name}\nTalle: ${size}\nColor: ${color}\nPrecio: $${product.price}`);
         //     return;
@@ -48,6 +48,10 @@ export default function ModalProd({ product, onClose }) {
         }
     }
 
+    async function guardarProducto(){
+        //Guardar datos de la compra en la bbdd
+    };
+
 
     return createPortal(
         <div className="modal-overlay">
@@ -77,7 +81,7 @@ export default function ModalProd({ product, onClose }) {
                 </div>
                 <p>{product.description}</p>
                 <p><strong>Precio: ${product.price}</strong></p>
-                <button onClick={guardarProducto} className="btn-primary">Confirmar Compra</button>
+                <button onClick={pagarProducto} className="btn-primary">Confirmar Compra</button>
             </div>
         </div>,
         document.body
