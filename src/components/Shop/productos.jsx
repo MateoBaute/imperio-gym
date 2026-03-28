@@ -59,10 +59,12 @@ export default function Products() {
     return (
         <div className="ShopSection">
             {productos.map((product, index) => (
-                <div key={index} className="CardShop">
+                <div onClick={() => openModal(product.id)} key={index} className="CardShop">
                     <div>
                         <h2>{product.name}</h2>
-                        <img src={product.img} />
+                        <div className='img-container'>
+                            <img src={product.img} />
+                        </div>
                         <p>{product.description}</p>
                         <p><strong>Precio: ${product.price}</strong></p>
                     </div>

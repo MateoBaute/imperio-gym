@@ -33,7 +33,7 @@ app.post('/register', async (req, res) => {
             menssage: 'Successfully registered user'
         });
 
-    } catch (error) { // Cambia 'errpr' por 'error'
+    } catch (error) {
         console.error(error);
         res.status(500).json({
             succes: false,
@@ -232,6 +232,29 @@ app.delete('/rutinaEliminar/:id', async (req, res) => {
     }
 });
 
+app.post('/guardarCompra', async (req, res) => {
+    let { idProducto, idUsuario } = req.body;
+
+    try {
+        const sql = "INSERT INTO `compras`( `idProducto`, `idUsuario`) VALUES ( ?, ?, ?)";
+        await db.execute(sql, [ idProducto, idUsuario ]);
+
+        res.status(201).json({
+            success: true,
+            message: 'Producto Guardado Correctamente'
+        });
+
+    }catch (error){
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            menssage: 'Ha ocurrido un problema en el servidor'
+        });
+
+    };
+});
+
+
 require('dotenv').config();
 const { MercadoPagoConfig, Preference } = require('mercadopago');
 
@@ -259,9 +282,9 @@ app.post("/create_preference", async (req, res) => {
                 },
             ],
             back_urls: {
-                success: "https://www.google.com", 
-                failure: "http://localhost:3001/failure",
-                pending: "http://localhost:3001/pending",
+                success: "https://localhost:3001/Success", 
+                failure: "http://localhost:3001/Failure",
+                pending: "http://localhost:3001/Pending",
             },
             auto_return: "approved",
         };

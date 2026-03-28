@@ -6,6 +6,11 @@ import Nosotros from './pages/Nosotros'
 import Rutinas from './pages/Rutinas'
 import Tienda from './pages/Tienda'
 import ModalLogin from './components/Home/modalLogin' // Importación añadida
+
+import Success from './pages/Success'
+import Failure from './pages/Failure'
+import Pending from './pages/Pending'
+
 import { useState, useEffect } from 'react'
 
 function App() {
@@ -44,6 +49,9 @@ function App() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/rutinas" element={<Rutinas onClose={handleCloseModal} />} />
           <Route path="/shop" element={<Tienda />} />
+          <Route path='/Success' element={<Success />} />
+          <Route path='/Failure' element={<Failure />} />
+          <Route path='/Pending' element={<Pending />} />
         </Routes>
       </main>
     </BrowserRouter>
