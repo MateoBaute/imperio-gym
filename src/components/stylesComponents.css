@@ -358,7 +358,7 @@ header {
     align-items: center;
 }
 
-.modalProds{
+.modalProds, .modalForm{
     background-color: #111111;
     width: min(25rem, 92vw);
     display: flex;
@@ -429,6 +429,23 @@ header {
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+
+#agregarProd{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.modalForm input, .modalForm select {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 12px;
+    background-color: #524e4e;
+    border: 1px solid var(--primary-red);
+    color: gray;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 /* Responsive */

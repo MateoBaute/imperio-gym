@@ -89,7 +89,7 @@ export default function ModalProd({ product, onClose }) {
                     <button onClick={onClose} className="close-btn">X</button>
                 </div>
                 <h2>{product.name}</h2>
-                <img src={product.img} />
+                <img src={`http://localhost:3001/productos/${product.id}/imagen`} />
                 <div className="sizeContainer">
                     <div id="SizeCont">
                         <select className="size-option" onChange={(e) => setSize(e.target.value)}>

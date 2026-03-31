@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const multer = require("multer");
 
 const mysql = require('mysql2/promise');
 const app = express()
@@ -16,6 +17,12 @@ const db = mysql.createPool({
 app.use(cors())
 app.use(express.json())
 
+
+
+
+const upload = multer({
+    storage: multer.memoryStorage()
+});
 
 
 app.post('/register', async (req, res) => {
@@ -68,7 +75,7 @@ app.post('/login', async (req, res) => {
 app.get('/rutinas', async (req, res) => {
     try {
         const connection = await db.getConnection(); // Obtenemos una conexión
-        
+
         // 1. AMPLIAMOS EL LÍMITE DE CARACTERES PARA ESTA SESIÓN
         await connection.execute("SET SESSION group_concat_max_len = 10000");
 
@@ -225,10 +232,78 @@ app.delete('/rutinaEliminar/:id', async (req, res) => {
         await db.query("DELETE FROM rutina_detalle WHERE rutina_id = ?", [id]);
         await db.query("DELETE FROM usuario_rutina WHERE rutina_id = ?", [id]);
         await db.query("DELETE FROM rutinas WHERE id = ?", [id]);
-        
+
         res.status(200).send("Eliminado");
     } catch (error) {
         res.status(500).send(error);
+    }
+});
+
+app.get('/productosGet', async (req, res) => {
+    try {
+        const sql = "SELECT * FROM productos";
+
+        const [rows] = await db.execute(sql);
+        res.status(200).json({
+            success: true,
+            data: rows
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Error al obtener productos'
+        });
+    }
+});
+
+app.post("/productos", upload.single("imagen"), (req, res) => {
+    const { nombre, precio, descripcion, size, color } = req.body;
+    const imagen = req.file.buffer;
+    console.log(descripcion)
+
+    const sql = `
+    INSERT INTO productos (name, price, description, img, size, color)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
+
+    db.query(sql, [nombre, precio, descripcion, imagen, size, color], (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Error al guardar");
+        }
+
+        res.send("Producto creado correctamente");
+    });
+});
+
+
+app.get("/productos/:id/imagen", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const sql = "SELECT img FROM productos WHERE id = ?";
+
+        const [result] = await db.query(sql, [id]);
+
+        if (result.length === 0) {
+            return res.status(404).send("No encontrado");
+        }
+
+        const imagenRaw = result[0].img;
+
+        if (!imagenRaw) {
+            return res.status(404).send("Sin imagen");
+        }
+
+        const imagen = Buffer.from(imagenRaw.data || imagenRaw);
+
+        res.setHeader("Content-Type", "image/png");
+        res.end(imagen);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error");
     }
 });
 
@@ -237,14 +312,14 @@ app.post('/guardarCompra', async (req, res) => {
 
     try {
         const sql = "INSERT INTO `compras`( `idProducto`, `idUsuario`) VALUES ( ?, ?, ?)";
-        await db.execute(sql, [ idProducto, idUsuario ]);
+        await db.execute(sql, [idProducto, idUsuario]);
 
         res.status(201).json({
             success: true,
             message: 'Producto Guardado Correctamente'
         });
 
-    }catch (error){
+    } catch (error) {
         console.error(error);
         res.status(500).json({
             success: false,
@@ -259,7 +334,7 @@ require('dotenv').config();
 const { MercadoPagoConfig, Preference } = require('mercadopago');
 
 // Configura con tu Access Token de prueba
-const client = new MercadoPagoConfig({ 
+const client = new MercadoPagoConfig({
     accessToken: process.env.MP_ACCESS_TOKEN // Tu token en el archivo .env
 });
 
@@ -282,7 +357,7 @@ app.post("/create_preference", async (req, res) => {
                 },
             ],
             back_urls: {
-                success: "https://localhost:3001/Success", 
+                success: "https://localhost:3001/Success",
                 failure: "http://localhost:3001/Failure",
                 pending: "http://localhost:3001/Pending",
             },
@@ -293,16 +368,16 @@ app.post("/create_preference", async (req, res) => {
         const result = await preference.create({ body });
 
         // Enviamos el init_point para que el front redireccione
-        res.json({ 
-            id: result.id, 
-            init_point: result.init_point 
+        res.json({
+            id: result.id,
+            init_point: result.init_point
         });
 
     } catch (error) {
         console.error("ERROR EN MP:", error);
-        res.status(500).json({ 
+        res.status(500).json({
             error: "Error al crear la preferencia",
-            details: error.message 
+            details: error.message
         });
     }
 });
