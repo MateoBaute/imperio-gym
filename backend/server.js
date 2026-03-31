@@ -248,7 +248,7 @@ app.post('/guardarCompra', async (req, res) => {
         console.error(error);
         res.status(500).json({
             success: false,
-            menssage: 'Ha ocurrido un problema en el servidor'
+            message: 'Ha ocurrido un problema en el servidor'
         });
 
     };
