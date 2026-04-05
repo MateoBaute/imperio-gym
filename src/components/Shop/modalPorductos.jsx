@@ -7,6 +7,11 @@ export default function ModalProd({ product, onClose }) {
     const [color, setColor] = useState('');
 
     async function pagarProducto(id) {
+        const isLogged = localStorage.getItem('token') === "true";
+        if (!isLogged) {
+            alert("Debes iniciar sesión para realizar una compra.");
+            return;
+        }
         const precioNumero = parseInt(product.price);
 
 //Verificación de campos antes de enviar la solicitud
@@ -56,30 +61,6 @@ export default function ModalProd({ product, onClose }) {
         }
     }
 
-    async function guardarProducto(idProducto) {
-        let UserId = localStorage.getItem('userId');
-        const idUsuario = parseInt(UserId);
-
-        const body = {
-            productoId: idProducto,
-            idUsuario: idUsuario
-        };
-        try {
-            const res = await fetch('http://localhost:3001/guardarCompra', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-            const data = await res.json();
-
-            if (data.success) {
-                console.log("Compra guardada con éxito");
-            }
-        } catch (error) {
-            console.error("Error al guardar la compra:", error);
-        }
-
-    };
 
 
     return createPortal(

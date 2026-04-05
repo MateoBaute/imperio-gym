@@ -26,10 +26,12 @@ function App() {
 
   const handleLogin = () => {
     setShowModal(true); // Ahora abre el modal en lugar de solo loguear
+    document.body.style.overflow = 'hidden'; // Evita el scroll del fondo
   }
 
   const handleCloseModal = () => {
     setShowModal(false);
+    document.body.style.overflow = 'auto'; // Restaura el scroll del fondo
 
     // Si al cerrar el modal el token existe, actualizamos el estado
     if (localStorage.getItem("token") === "true") {

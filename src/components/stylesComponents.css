@@ -1,10 +1,19 @@
-/*Region of styles Header*/
+/* ===== REGION: VARIABLES GLOBALES ===== */
+:root {
+    --dark-gray: #1a1a1a;
+    --pure-white: #ffffff;
+    --primary-red: #e50914;
+    --deep-black: #0a0a0a;
+}
+
+/* ===== REGION: RESET Y BASE ===== */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
+/* ===== REGION: HEADER ===== */
 header {
     width: 100%;
     height: 100px;
@@ -18,7 +27,6 @@ header {
     max-width: 50rem;
     gap: 2rem;
     margin: auto;
-
 }
 
 .header-nav ul {
@@ -27,7 +35,6 @@ header {
     gap: 2rem;
     list-style: none;
     margin: auto;
-
 }
 
 .header-nav li {
@@ -42,8 +49,8 @@ header {
     transform: scale(1.03);
 }
 
-#CloseSession{
-    color: var( --primary-red);
+#CloseSession {
+    color: var(--primary-red);
     font-size: 1.4rem;
     font-weight: 600;
 }
@@ -60,9 +67,7 @@ header {
     transform: scale(1.05);
 }
 
-/*End region*/
-
-/*Region of styles ModalLogin*/
+/* ===== REGION: MODAL LOGIN ===== */
 .modal-wrapper {
     position: fixed;
     top: 0;
@@ -94,7 +99,17 @@ header {
     gap: 10px;
 }
 
-.midalLogin h1 {
+
+.modalLogin::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modalLogin ::-webkit-scrollbar-thumb{
+    background: var(--primary-red);
+    border-radius: 10px;
+}
+
+.modalLogin h1 {
     font-size: 2rem;
     font-weight: 600;
     text-align: center;
@@ -107,9 +122,8 @@ header {
 
 .modalLogin label {
     font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 0;
     font-weight: 300;
+    margin-bottom: 0;
 }
 
 .modalLogin input {
@@ -135,8 +149,11 @@ header {
     margin-bottom: 0;
 }
 
-/*End region*/
+#btn-Login {
+    margin: 0;
+}
 
+/* ===== REGION: IMAGEN PRINCIPAL ===== */
 #ImgGymOne {
     width: 30rem;
     margin: 3rem auto;
@@ -144,23 +161,12 @@ header {
     right: 29%;
 }
 
-/*Region About*/
+/* ===== REGION: ABOUT ===== */
 .About p {
     margin-bottom: 2rem;
 }
 
-/*End Region*/
-.shop p {
-    margin-bottom: 2rem;
-}
-
-/*Region Shop*/
-
-#btn-Login {
-    margin: 0;
-}
-
-/*Region Rutinas*/
+/* ===== REGION: RUTINAS ===== */
 .btn-rutinas {
     padding: 0.6rem;
     border-radius: 8px;
@@ -171,19 +177,21 @@ header {
     margin: 1rem auto;
 }
 
+#btn-rutinas {
+    font-size: 1rem;
+    border-radius: 12px;
+}
+
 .contenidoModal {
     background-color: #121212;
     padding: 2rem;
     border-radius: 1rem;
     width: min(30rem, 92vw);
     max-height: 85vh;
-    /* IMPORTANTE: No puede ser más alto que el 85% de la pantalla */
     overflow-y: auto;
-    /* El scroll aparece solo si es necesario */
     border: 1px solid #333;
 }
 
-/* Opcional: Personaliza la barrita de scroll para que combine con tu modo oscuro */
 .contenidoModal::-webkit-scrollbar {
     width: 8px;
 }
@@ -203,11 +211,6 @@ header {
     font-size: 1rem;
 }
 
-#btn-rutinas {
-    font-size: 1rem;
-    border-radius: 12px;
-}
-
 .inputRutinas {
     width: 100%;
     padding: 0.7rem;
@@ -218,7 +221,7 @@ header {
     margin-bottom: 0.5rem;
 }
 
-.inputRutinas input:focus {
+.inputRutinas:focus-within {
     background-color: #5e3a3d;
 }
 
@@ -228,7 +231,6 @@ header {
     margin: 0.2rem;
     border-radius: 12px;
 }
-
 
 .trRutinas {
     background-color: #333;
@@ -251,13 +253,11 @@ header {
     margin-bottom: 50px;
 }
 
-
 .header-rutina {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
 
 .tabla-ejercicios {
     width: 100%;
@@ -266,13 +266,11 @@ header {
     border: 1px solid black;
 }
 
-
 .td-ejercicio {
     padding: 8px;
     text-align: left;
     border: 1px solid #524e4e;
 }
-
 
 .td-dato {
     padding: 8px;
@@ -285,9 +283,8 @@ header {
     margin-top: 10px;
 }
 
-/*Shop region*/
-
-.ShopSection{
+/* ===== REGION: SHOP ===== */
+.ShopSection {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -308,13 +305,13 @@ header {
     background-color: var(--dark-gray);
     padding: 1.5rem;
     border-radius: 0.8rem;
-    display: flex; 
+    display: flex;
     flex-direction: column;
     transition: 0.3s ease;
     align-items: center;
 }
 
-.CardShop:hover{
+.CardShop:hover {
     transform: translateY(-0.4rem);
 }
 
@@ -344,7 +341,7 @@ header {
     border-radius: 0.8rem;
 }
 
-.modal-overlay{
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -358,7 +355,7 @@ header {
     align-items: center;
 }
 
-.modalProds, .modalForm{
+.modalProds {
     background-color: #111111;
     width: min(25rem, 92vw);
     display: flex;
@@ -379,34 +376,65 @@ header {
     border-radius: 10px;
 }
 
+.modalProds img {
+    max-width: 40%;
+    width: 40%;
+    margin: 1rem 30%;
+    border-radius: 12px;
+}
+
+.modalForm {
+    background-color: #111111;
+    width: min(25rem, 92vw);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    padding: 2rem;
+    z-index: 9999;
+    overflow-y: auto;
+    border-radius: 0.8rem;
+}
+
+.modalForm input,
+.modalForm select {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 12px;
+    background-color: #524e4e;
+    border: 1px solid var(--primary-red);
+    color: gray;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
 #Close {
     display: flex;
     justify-content: flex-end;
 }
 
-.close-btn{
+.close-btn {
     width: 4rem;
-    margin:  1.2rem 0;
+    margin: 1.2rem 0;
     border-radius: 0.8rem;
     border: none;
     padding: 0.3rem;
     background-color: var(--primary-red);
     color: white;
-    
 }
 
-.close-btn:hover{
+.close-btn:hover {
     background-color: #c32f3a;
 }
 
-.sizeContainer{
+.sizeContainer {
     display: flex;
     justify-content: center;
     gap: 1rem;
     margin: 0.5rem 0;
 }
 
-.size-option, .color-option {
+.size-option,
+.color-option {
     padding: 0.5rem 1rem;
     width: 7rem;
     border-radius: 8px;
@@ -418,38 +446,46 @@ header {
     text-align: center;
 }
 
-.modalProds img{
-    max-width: 40%;
-    width: 40%;
-    margin: 1rem 30%;
-    border-radius: 12px;
-}
-
-#SizeCont, #ColorCont{
+#SizeCont,
+#ColorCont {
     display: flex;
     flex-direction: column;
     text-align: center;
 }
 
-#agregarProd{
+#agregarProd {
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
-.modalForm input, .modalForm select {
-    width: 100%;
-    padding: 0.8rem;
-    border-radius: 12px;
-    background-color: #524e4e;
-    border: 1px solid var(--primary-red);
-    color: gray;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+/* ===== REGION: SUCCESS ===== */
+.success-container h1 {
+    color: green;
+    text-align: center;
 }
 
-/* Responsive */
+.success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--deep-black);
+}
+
+p {
+    font-size: 1.5rem;
+    color: var(--pure-white);
+    margin-top: 1rem;
+    text-align: center;
+}
+
+
+
+/* ===== REGION: RESPONSIVE ===== */
 @media (max-width: 768px) {
+    
     header {
         height: auto;
         padding: 0.75rem 0;
@@ -471,7 +507,7 @@ header {
         font-size: 1.1rem;
     }
 
-    #CloseSession{
+    #CloseSession {
         font-size: 1rem;
     }
 
@@ -511,6 +547,12 @@ header {
         padding: 1.5rem;
     }
 
+    .modalProds img {
+        max-width: 60%;
+        width: 60%;
+        margin: 1rem 20%;
+    }
+
     .close-btn {
         width: 3.5rem;
         padding: 0.3rem;
@@ -525,14 +567,6 @@ header {
     .color-option {
         width: 6rem;
         font-size: 0.95rem;
-    }
-
-
-    .modalProds img {
-        max-width: 60%;
-        width: 60%;
-        margin: 1rem 20%;
-        border-radius: 12px;
     }
 }
 

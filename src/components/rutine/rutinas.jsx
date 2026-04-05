@@ -74,7 +74,6 @@ export default function Rutinas({ lista, activarEdicion, enviarId }) {
                             Eliminar Rutina
                         </button>
                     )}
-                    {/* <button className="btn-primary">Elegir {rutina.nombre}</button> */}
                 </div>
             ))}
         </div>

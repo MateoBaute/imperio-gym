@@ -56,13 +56,14 @@ export default function RenderRutinas() {
             setAdmin(true)
         }
 
-        const handleEsc = (event) => {
-            if (event.key === 'Escape') {
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') {
                 setShowModal(false)
                 setEditRutina(false)
             }
         }
         window.addEventListener('keydown', handleEsc)
+
         return () => {
             window.removeEventListener('keydown', handleEsc);
         };
@@ -75,9 +76,9 @@ export default function RenderRutinas() {
             {admin ? (<button className='btn-rutinas' onClick={() => setShowModal(true)}>Crear Rutina</button>) : null}
 
             {showModal ? (<ModalRutinas />) : null}
-            {editRutina ? (<ModalEditRutinas rutinas={rutinas}   idRutinaEditar={editRutinaId} />) : null}
+            {editRutina ? (<ModalEditRutinas rutinas={rutinas} idRutinaEditar={editRutinaId} />) : null}
 
-            <Rutinas  enviarId={(id) => seteditRutinaId(id)}  activarEdicion={() => setEditRutina(true)} lista={rutinas} />
+            <Rutinas enviarId={(id) => seteditRutinaId(id)} activarEdicion={() => setEditRutina(true)} lista={rutinas} />
         </div>
     );
 }

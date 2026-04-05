@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-export default function editRutinas({ rutinas, idRutinaEditar }) {
+export default function editRutinas({ rutinas, idRutinaEditar, onClose }) {
     const [rutinaEncontrada, setRutinaEncontrada] = useState(null);
     const [ejerciciosCatalogo, setEjerciciosCatalogo] = useState([]);
 
@@ -92,8 +92,8 @@ export default function editRutinas({ rutinas, idRutinaEditar }) {
     if (!rutinaEncontrada) return null;
 
     return createPortal(
-        <div className="modal-wrapper">
-            <div className="contenidoModalRutinas">
+        <div className="modal-wrapper" onClick={onClose}>
+            <div className="contenidoModalRutinas" onClick={(e) => e.stopPropagation()}>
                 <div className="contenidoModal">
                     <h2>Editar Rutina</h2>
 

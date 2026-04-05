@@ -11,25 +11,26 @@ export default function ModalLogin({ onClose }) {
     const [success, setSuccess] = useState(false);
 
     async function login() {
+        console.log(name, pass);
         try {
             const response = await fetch('http://localhost:3001/login', {
                 method: "POST",
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({name, pass})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, pass })
             });
-            
+
             const data = await response.json();
 
             if (data.success) {
                 localStorage.setItem('token', "true"); // Guardado como string
                 localStorage.setItem('admin', data.admin);
                 localStorage.setItem('userId', data.id); // Guardamos el ID que necesitabas
-                setSuccess(true); 
+                setSuccess(true);
                 setTimeout(() => onClose(), 1200);
             } else {
                 alert(data.menssage);
             }
-        } catch(error) {
+        } catch (error) {
             alert('Error connecting to server');
         }
     }
@@ -38,19 +39,19 @@ export default function ModalLogin({ onClose }) {
         try {
             const response = await fetch('http://localhost:3001/register', {
                 method: 'POST',
-                headers: {'Content-Type': "application/json"},
-                body: JSON.stringify({name, pass, email})
+                headers: { 'Content-Type': "application/json" },
+                body: JSON.stringify({ name, pass, email })
             });
-            
+
             const data = await response.json();
 
-            if(data.success) { // Corregido: data.success
+            if (data.success) { // Corregido: data.success
                 alert(data.menssage);
                 setIsRegister(false);
             } else {
                 alert(data.menssage || 'Error en registro');
             }
-        } catch(error) {
+        } catch (error) {
             alert('Error to connection with Data Base');
         }
     }
@@ -59,6 +60,12 @@ export default function ModalLogin({ onClose }) {
         const handleEsc = (event) => {
             if (event.key === 'Escape') {
                 onClose();
+            } else if (event.key === 'Enter') {
+                if (isRegister) {
+                    register();
+                } else {
+                    login();
+                }
             }
         };
 
@@ -72,12 +79,13 @@ export default function ModalLogin({ onClose }) {
 
 
     return createPortal(
-        <div id="divModal" className="modal-wrapper">
+        <div id="divModal" className="modal-wrapper" onClick={onClose}>
             {success ? (
                 <ModalLoginSuccess />
             ) : (
-                <div className="modalLogin">
+                <div className="modalLogin" onClick={(e) => e.stopPropagation()}>
                     <div className="contentLogin">
+                        
                         <h1>{isRegister ? "Register" : "Login"}</h1>
                         <label>Name:</label>
                         <input value={name} onChange={(e) => setName(e.target.value)} />
@@ -98,7 +106,7 @@ export default function ModalLogin({ onClose }) {
 
                         <p>
                             {isRegister ? "¿You have an account? " : "¿You don't have an account? "}
-                            <a style={{cursor:'pointer', color:'blue'}} onClick={() => setIsRegister(!isRegister)}>
+                            <a style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setIsRegister(!isRegister)}>
                                 {isRegister ? "Login" : "Register"}
                             </a>
                         </p>

@@ -260,7 +260,7 @@ app.get('/productosGet', async (req, res) => {
 app.post("/productos", upload.single("imagen"), (req, res) => {
     const { nombre, precio, descripcion, size, color } = req.body;
     const imagen = req.file.buffer;
-    console.log(descripcion)
+    // console.log(descripcion)
 
     const sql = `
     INSERT INTO productos (name, price, description, img, size, color)
@@ -298,12 +298,26 @@ app.get("/productos/:id/imagen", async (req, res) => {
 
         const imagen = Buffer.from(imagenRaw.data || imagenRaw);
 
-        res.setHeader("Content-Type", "image/png");
+        res.setHeader("Content-Type", "image/png", "image/jpeg", "image/jpg");
         res.end(imagen);
 
     } catch (err) {
         console.error(err);
         res.status(500).send("Error");
+    }
+});
+
+app.delete('/productos/eliminar', async (req, res) => {
+    const { id } = req.body;
+    // console.log(id);
+
+    try {
+        const sql = "DELETE FROM productos WHERE id = ?";
+        const [resultts] = await db.execute(sql, [id]);
+        res.status(200).send("Producto eliminado correctamente");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error al eliminar el producto");
     }
 });
 
