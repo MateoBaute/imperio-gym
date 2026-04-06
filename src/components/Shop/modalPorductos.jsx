@@ -72,17 +72,19 @@ export default function ModalProd({ product, onClose }) {
                 <h2>{product.name}</h2>
                 <img src={`http://localhost:3001/productos/${product.id}/imagen`} />
                 <div className="sizeContainer">
-                    <div id="SizeCont">
-                        <select className="size-option" onChange={(e) => setSize(e.target.value)}>
-                            <option value="">Talle</option>
+                    <div id="SizeCont" className="modal-prod-field">
+                        <label className="modal-prod-label" htmlFor={`prod-size-${product.id}`}>Talle</label>
+                        <select id={`prod-size-${product.id}`} className="modal-prod-select" onChange={(e) => setSize(e.target.value)}>
+                            <option value="">Elegir talle</option>
                             {product.size?.map((s) => (
                                 <option key={s} value={s}>{s}</option>
                             ))}
                         </select>
                     </div>
-                    <div id="ColorCont">
-                        <select className="size-option" onChange={(e) => setColor(e.target.value)}>
-                            <option value="">Color</option>
+                    <div id="ColorCont" className="modal-prod-field">
+                        <label className="modal-prod-label" htmlFor={`prod-color-${product.id}`}>Color</label>
+                        <select id={`prod-color-${product.id}`} className="modal-prod-select" onChange={(e) => setColor(e.target.value)}>
+                            <option value="">Elegir color</option>
                             {product.color?.map((c) => (
                                 <option key={c} value={c}>{c}</option>
                             ))}

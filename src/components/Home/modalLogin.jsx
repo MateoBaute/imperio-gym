@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import "../stylesComponents.css";
 import ModalLoginSuccess from './modalLoginSucces';
+import { AppContext } from '../../contexts/AppContext'
+import { useContext } from 'react'
 
-export default function ModalLogin({ onClose }) {
+export default function ModalLogin() {
+    const { handleCloseModal } = useContext(AppContext);
+
     const [isRegister, setIsRegister] = useState(false)
     const [name, setName] = useState('');
     const [pass, setPass] = useState('');
@@ -26,7 +30,7 @@ export default function ModalLogin({ onClose }) {
                 localStorage.setItem('admin', data.admin);
                 localStorage.setItem('userId', data.id); // Guardamos el ID que necesitabas
                 setSuccess(true);
-                setTimeout(() => onClose(), 1200);
+                setTimeout(() => handleCloseModal(), 1200);
             } else {
                 alert(data.menssage);
             }
@@ -59,14 +63,8 @@ export default function ModalLogin({ onClose }) {
     useEffect(() => {
         const handleEsc = (event) => {
             if (event.key === 'Escape') {
-                onClose();
-            } else if (event.key === 'Enter') {
-                if (isRegister) {
-                    register();
-                } else {
-                    login();
-                }
-            }
+                handleCloseModal();
+            };
         };
 
         // Añadimos el evento al teclado
@@ -75,13 +73,13 @@ export default function ModalLogin({ onClose }) {
         return () => {
             window.removeEventListener('keydown', handleEsc);
         };
-    }, [onClose]);
+    }, [handleCloseModal]);
 
 
     return createPortal(
-        <div id="divModal" className="modal-wrapper" onClick={onClose}>
+        <div id="divModal" className="modal-wrapper" onClick={handleCloseModal}>
             {success ? (
-                <ModalLoginSuccess />
+                <ModalLoginSuccess user={name} />
             ) : (
                 <div className="modalLogin" onClick={(e) => e.stopPropagation()}>
                     <div className="contentLogin">
@@ -104,12 +102,14 @@ export default function ModalLogin({ onClose }) {
                             {isRegister ? "Register" : "LogIn"}
                         </button>
 
-                        <p>
-                            {isRegister ? "¿You have an account? " : "¿You don't have an account? "}
-                            <a style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setIsRegister(!isRegister)}>
-                                {isRegister ? "Login" : "Register"}
-                            </a>
-                        </p>
+                        <div className="modal-login__hint">
+                            <span>
+                                {isRegister ? "¿Ya tenés cuenta? " : "¿No tenés cuenta? "}
+                            </span>
+                            <button type="button" className="modal-login__switch" onClick={() => setIsRegister(!isRegister)}>
+                                {isRegister ? "Iniciar sesión" : "Registrarse"}
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

@@ -1,5 +1,11 @@
+
 import './App.css'
+//hooks y context
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AppContext } from './contexts/AppContext'
+import { useContext } from 'react'
+
+//components
 import Header from './components/Home/header'
 import Home from './pages/Home'
 import Nosotros from './pages/Nosotros'
@@ -7,56 +13,35 @@ import Rutinas from './pages/Rutinas'
 import Tienda from './pages/Tienda'
 import ModalLogin from './components/Home/modalLogin' // Importación añadida
 
+//pages
 import Success from './pages/Success'
 import Failure from './pages/Failure'
 import Pending from './pages/Pending'
 
-import { useState, useEffect } from 'react'
+
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token === "true") {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  const handleLogin = () => {
-    setShowModal(true); // Ahora abre el modal en lugar de solo loguear
-    document.body.style.overflow = 'hidden'; // Evita el scroll del fondo
-  }
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    document.body.style.overflow = 'auto'; // Restaura el scroll del fondo
-
-    // Si al cerrar el modal el token existe, actualizamos el estado
-    if (localStorage.getItem("token") === "true") {
-      setIsLoggedIn(true);
-    }
-  }
+  const { showModal,} = useContext(AppContext);
 
   return (
-    <BrowserRouter>
-      <Header isLoggedIn={isLoggedIn} handleLogin={handleLogin} />
-      
-      {showModal && <ModalLogin onClose={handleCloseModal} />}
+      <BrowserRouter>
+        <Header />
 
-      <main>
-        <Routes>
-          <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
-          <Route path="/nosotros" element={<Nosotros />} />
-          <Route path="/rutinas" element={<Rutinas onClose={handleCloseModal} />} />
-          <Route path="/shop" element={<Tienda />} />
-          <Route path='/Success' element={<Success />} />
-          <Route path='/Failure' element={<Failure />} />
-          <Route path='/Pending' element={<Pending />} />
-        </Routes>
-      </main>
-    </BrowserRouter>
+        {showModal && <ModalLogin />}
+
+        <main>
+          <Routes>
+            <Route path="/" element={<Home  />} />
+            <Route path="/nosotros" element={<Nosotros />} />
+            <Route path="/rutinas" element={<Rutinas />} />
+            <Route path="/shop" element={<Tienda />} />
+            <Route path='/Success' element={<Success />} />
+            <Route path='/Failure' element={<Failure />} />
+            <Route path='/Pending' element={<Pending />} />
+          </Routes>
+        </main>
+      </BrowserRouter>
   )
 }
 

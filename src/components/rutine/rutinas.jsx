@@ -45,7 +45,7 @@ export default function Rutinas({ lista, activarEdicion, enviarId }) {
                         </span>
                     </div>
 
-                    {/* Clase nueva: tabla-ejercicios */}
+                    <div className="table-scroll-wrap">
                     <table className="tabla-ejercicios">
                         <thead>
                             <tr className="trRutinas">
@@ -65,6 +65,7 @@ export default function Rutinas({ lista, activarEdicion, enviarId }) {
                             ))}
                         </tbody>
                     </table>
+                    </div>
                     {admin ? (<button id={rutina.id} className="btn-primary" onClick={() => { enviarId(rutina.id); activarEdicion(); }}  >Editar Rutina</button>) : null}
                     {admin && (
                         <button

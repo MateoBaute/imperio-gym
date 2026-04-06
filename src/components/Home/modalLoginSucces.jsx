@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-export default function modalLoginSuccess({user}){
+export default function ModalLoginSuccess({user}){
 
     return(
             <div className='modalLogin'>

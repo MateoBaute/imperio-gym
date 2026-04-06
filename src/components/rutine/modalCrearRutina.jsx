@@ -100,7 +100,7 @@ export default function ModalCrear() {
 
                     {/* RENDERIZADO DINÁMICO */}
                     {listaEjercicios.map((_, index) => (
-                        <div key={index} className="ejercicio-row" style={{ borderBottom: '1px solid #ccc', padding: '10px 0' }}>
+                        <div key={index} className="ejercicio-row">
                             <label>Ejercicio {index + 1}: </label>
                             <select onChange={(e) => updateEjercicio(index, 'ejercicio_id', e.target.value)}>
                                 <option value="">Selecciona un ejercicio</option>
@@ -109,7 +109,7 @@ export default function ModalCrear() {
                                 ))}
                             </select>
 
-                            <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                            <div className="ejercicio-row__inputs">
                                 <div>
                                     <label>Series: </label>
                                     <input className="inputRutinas" type="number" onChange={(e) => updateEjercicio(index, 'series', e.target.value)} />
@@ -124,8 +124,8 @@ export default function ModalCrear() {
                     ))}
 
                     {numEjercicios > 0 && (
-                        <button onClick={guardarRutina} className="btn-primary" style={{ marginTop: '20px' }}>
-                            Guardar Rutina en Base de Datos
+                        <button type="button" onClick={guardarRutina} className="btn-primary modal-rutina__save">
+                            Guardar Rutina
                         </button>
                     )}
                 </div>

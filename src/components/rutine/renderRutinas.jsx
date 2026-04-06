@@ -70,9 +70,9 @@ export default function RenderRutinas() {
     }, [showModal, editRutinaId]);
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h1>Rutinas Disponibles</h1>
-            <p>Explora nuestros planes de entrenamiento</p>
+        <div className="page-rutinas">
+            <h1>Rutinas</h1>
+            <p>Planes de entrenamiento pensados por nivel y objetivo</p>
             {admin ? (<button className='btn-rutinas' onClick={() => setShowModal(true)}>Crear Rutina</button>) : null}
 
             {showModal ? (<ModalRutinas />) : null}

@@ -130,6 +130,3 @@ export default function Products() {
         </div>
     );
 }
-
-
-//La primera guerra mundial es Hisoria historica

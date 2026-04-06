@@ -123,7 +123,7 @@ export default function editRutinas({ rutinas, idRutinaEditar, onClose }) {
                                 ))}
                             </select>
 
-                            <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                            <div className="ejercicio-row__inputs">
                                 <div>
                                     <label>Series: </label>
                                     <input
@@ -144,7 +144,7 @@ export default function editRutinas({ rutinas, idRutinaEditar, onClose }) {
                         </div>
                     ))}
 
-                    <button onClick={guardarRutina} className="btn-primary">
+                    <button type="button" onClick={guardarRutina} className="btn-primary modal-rutina__save">
                         Guardar Cambios
                     </button>
                 </div>
