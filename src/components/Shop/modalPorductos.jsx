@@ -1,14 +1,16 @@
 import { createPortal } from "react-dom";
 import { useState } from "react";
+import { AppContext } from "../../contexts/AppContext";
+import { useContext } from "react";
 
 // Recibimos el producto y la función de cierre por props
 export default function ModalProd({ product, onClose }) {
+    const { isLoggedIn } = useContext(AppContext)
     const [size, setSize] = useState('');
     const [color, setColor] = useState('');
 
     async function pagarProducto(id) {
-        const isLogged = localStorage.getItem('token') === "true";
-        if (!isLogged) {
+        if (!isLoggedIn) {
             alert("Debes iniciar sesión para realizar una compra.");
             return;
         }

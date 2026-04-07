@@ -3,6 +3,7 @@ import ModalProd from './modalPorductos'
 import ModalCrearProducto from './modalCrearProducto';
 import { AppContext } from '../../contexts/AppContext'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom';
 
 
 // {productos}
@@ -103,9 +104,12 @@ export default function Products() {
 
     return (
         <div className="ShopSection">
-            <div id='agregarProd'>{admin && (
-                <button className='btn-primary' onClick={() => { setAgregar(true) }}>Agregar Producto</button>
-            )}</div>
+            <div id='agregarProd'>{admin ? (
+                <>
+                    <button className='btn-primary' onClick={() => { setAgregar(true) }}>Agregar Producto</button>
+                    <button className='btn-primary'><Link to="/pedidos">Ver Pedidos</Link></button>
+                </>
+            ) : null }</div>
             {productos.map((product, index) => (
                 <div onClick={() => openModalCompra(product.id)} key={index} className="CardShop">
                     <div>

@@ -11,7 +11,8 @@ import Home from './pages/Home'
 import Nosotros from './pages/Nosotros'
 import Rutinas from './pages/Rutinas'
 import Tienda from './pages/Tienda'
-import ModalLogin from './components/Home/modalLogin' // Importación añadida
+import ModalLogin from './components/Home/modalLogin'
+import Pedidos from './components/Shop/pedidos'
 
 //pages
 import Success from './pages/Success'
@@ -39,6 +40,7 @@ function App() {
             <Route path='/Success' element={<Success />} />
             <Route path='/Failure' element={<Failure />} />
             <Route path='/Pending' element={<Pending />} />
+            <Route path='/pedidos' element={<Pedidos />} />
           </Routes>
         </main>
       </BrowserRouter>
