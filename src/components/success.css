@@ -5,6 +5,11 @@
 }
 
 .success-container {
+  background-color: var(--border);
+  margin: 5rem  auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,8 +18,7 @@
   padding: max(2rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
     max(2rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
   box-sizing: border-box;
-  width: 100%;
-  max-width: 100%;
+  width: 70%;
 }
 
 .success-container p {
