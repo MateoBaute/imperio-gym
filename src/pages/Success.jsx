@@ -35,8 +35,7 @@ export default function Success() {
     };
 
     useEffect(() => {
-        // const pendingProductId = Number(localStorage.getItem('pendingProductId'));
-        const pendingProductId = 2;
+        const pendingProductId = Number(localStorage.getItem('pendingProductId'));
         if (!ejecutado.current) {
             guardarProducto(pendingProductId);
             ejecutado.current = true; // 4. Marca como ejecutado
