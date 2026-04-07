@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import ModalProd from './modalPorductos'
 import ModalCrearProducto from './modalCrearProducto';
+import { AppContext } from '../../contexts/AppContext'
+import { useContext } from 'react'
 
 
 // {productos}
 export default function Products() {
+    const { isLoggedIn } = useContext(AppContext);
+
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [agregar, setAgregar] = useState(false);
     const [productos, setProductos] = useState([]);
@@ -117,7 +121,9 @@ export default function Products() {
                             <button onClick={() => eliminarProducto(product.id)} className="btn-primary">Eliminar Producto</button>
                         </div>
                     ) : null}
-                    <button onClick={() => openModalCompra(product.id)} className="btn-primary">Ver Producto</button>
+                    {isLoggedIn ? (
+                        <button onClick={() => openModalCompra(product.id)} className="btn-primary">Ver Producto</button>
+                    ) : null}
                 </div>
             ))}
             {agregar && (
