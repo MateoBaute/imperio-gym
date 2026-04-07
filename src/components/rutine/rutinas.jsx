@@ -8,7 +8,7 @@ export default function Rutinas({ lista, activarEdicion, enviarId }) {
         if (!confirm("¿Estás seguro de que quieres eliminar esta rutina?")) return;
 
         try {
-            const response = await fetch(`http://localhost:3001/rutinaEliminar/${id}`, {
+            const response = await fetch(`https://backend-imperio.vercel.app/rutinaEliminar/${id}`, {
                 method: 'DELETE', // Es el estándar para eliminar
             });
 

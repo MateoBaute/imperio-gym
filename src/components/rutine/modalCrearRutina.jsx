@@ -14,7 +14,7 @@ export default function ModalCrear() {
     // 2. CARGAR EJERCICIOS AL MONTAR
     async function traerEjercicios() {
         try {
-            const response = await fetch('http://localhost:3001/ejercicios');
+            const response = await fetch('https://backend-imperio.vercel.app/ejercicios');
             const data = await response.json();
             if (data.success) setEjerciciosCatalogo(data.data);
         } catch (error) {
@@ -59,7 +59,7 @@ export default function ModalCrear() {
         };
 
         try {
-            const res = await fetch('http://localhost:3001/nuevaRutina', {
+            const res = await fetch('https://backend-imperio.vercel.app/nuevaRutina', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)

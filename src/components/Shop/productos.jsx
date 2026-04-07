@@ -13,7 +13,7 @@ export default function Products() {
 
     async function obtenerProds() {
         try {
-            const response = await fetch('http://localhost:3001/productosGet');
+            const response = await fetch('https://backend-imperio.vercel.app/productosGet');
             const data = await response.json();
 
 
@@ -56,7 +56,7 @@ export default function Products() {
 
         try {
             // console.log(id)
-            const response = await fetch(`http://localhost:3001/productos/eliminar`, {
+            const response = await fetch(`https://backend-imperio.vercel.app/productos/eliminar`, {
                 method: 'DELETE',
                 body: JSON.stringify({ id }),
                 headers: {
@@ -107,7 +107,7 @@ export default function Products() {
                     <div>
                         <h2>{product.name}</h2>
                         <div className='img-container'>
-                            <img src={`http://localhost:3001/productos/${product.id}/imagen`} />
+                            <img src={`https://backend-imperio.vercel.app/productos/${product.id}/imagen`} />
                         </div>
                         <p>{product.description}</p>
                         <p><strong>Precio: ${product.price}</strong></p>

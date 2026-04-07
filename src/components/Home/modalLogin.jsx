@@ -17,7 +17,7 @@ export default function ModalLogin() {
     async function login() {
         console.log(name, pass);
         try {
-            const response = await fetch('http://localhost:3001/login', {
+            const response = await fetch('https://backend-imperio.vercel.app/login', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, pass })
@@ -41,7 +41,7 @@ export default function ModalLogin() {
 
     async function register() {
         try {
-            const response = await fetch('http://localhost:3001/register', {
+            const response = await fetch('https://backend-imperio.vercel.app/register', {
                 method: 'POST',
                 headers: { 'Content-Type': "application/json" },
                 body: JSON.stringify({ name, pass, email })

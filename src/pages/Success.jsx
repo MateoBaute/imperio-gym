@@ -12,7 +12,7 @@ export default function Success() {
                 idUsuario: idUsuario
             };
             try {
-                const res = await fetch('http://localhost:3001/guardarCompra', {
+                const res = await fetch('https://backend-imperio.vercel.app/guardarCompra', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body)

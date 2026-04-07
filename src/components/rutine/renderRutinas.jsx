@@ -12,7 +12,7 @@ export default function RenderRutinas() {
 
     async function traerRutinas() {
         try {
-            const response = await fetch('http://localhost:3001/rutinas');
+            const response = await fetch('https://backend-imperio.vercel.app/rutinas');
             const data = await response.json();
 
             if (data.success) {

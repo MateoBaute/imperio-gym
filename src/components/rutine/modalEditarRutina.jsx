@@ -23,7 +23,7 @@ export default function editRutinas({ rutinas, idRutinaEditar, onClose }) {
 
     async function traerEjercicios() {
         try {
-            const response = await fetch('http://localhost:3001/ejercicios');
+            const response = await fetch('https://backend-imperio.vercel.app/ejercicios');
             const data = await response.json();
             if (data.success) setEjerciciosCatalogo(data.data);
         } catch (error) {
@@ -68,7 +68,7 @@ export default function editRutinas({ rutinas, idRutinaEditar, onClose }) {
             };
             console.log("Enviando al backend:", body);
 
-            const response = await fetch(`http://localhost:3001/editarRutina/${idRutinaEditar}`, {
+            const response = await fetch(`https://backend-imperio.vercel.app/editarRutina/${idRutinaEditar}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)

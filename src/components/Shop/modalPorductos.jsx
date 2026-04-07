@@ -34,7 +34,7 @@ export default function ModalProd({ product, onClose }) {
         };
 
         try {
-            const response = await fetch("http://localhost:3001/create_preference", {
+            const response = await fetch("https://backend-imperio.vercel.app/create_preference", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(productoParaPagar),
@@ -70,7 +70,7 @@ export default function ModalProd({ product, onClose }) {
                     <button onClick={onClose} className="close-btn">X</button>
                 </div>
                 <h2>{product.name}</h2>
-                <img src={`http://localhost:3001/productos/${product.id}/imagen`} />
+                <img src={`https://backend-imperio.vercel.app/productos/${product.id}/imagen`} />
                 <div className="sizeContainer">
                     <div id="SizeCont" className="modal-prod-field">
                         <label className="modal-prod-label" htmlFor={`prod-size-${product.id}`}>Talle</label>

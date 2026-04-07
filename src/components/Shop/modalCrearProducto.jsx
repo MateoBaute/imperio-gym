@@ -24,7 +24,7 @@ export default function ModalCrearProducto({ onClose }) {
 
         console.log(descripcion);
         try {
-            const res = await fetch("http://localhost:3001/productos", {
+            const res = await fetch("https://backend-imperio.vercel.app/productos", {
                 method: "POST",
                 body: formData
             });
