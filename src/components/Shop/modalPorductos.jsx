@@ -48,9 +48,9 @@ export default function ModalProd({ product, onClose }) {
             const data = await response.json();
 
             if (data.init_point) {
+                localStorage.setItem('pendingProductId', String(id));
                 // Redirige al checkout de Mercado Pago
                 window.location.href = data.init_point;
-                guardarProducto(id);
 
             } else {
                 alert("No se pudo obtener el link de pago");
