@@ -14,6 +14,7 @@ export default function pedidos() {
 
             if(data.success){
                 setCompras(data.compras)
+                console.log(compras)
             }
 
         }catch (error){
