@@ -80,6 +80,7 @@ export default function pedidos() {
     }
 
     useEffect(()=> {
+        console.log(compras)
         traerCompras();
         datosUsuario();
         fomatearFecha();
