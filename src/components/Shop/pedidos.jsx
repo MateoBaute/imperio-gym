@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 
-export default function pedidos() {
+export default function Pedidos() {
     const [compras, setCompras] = useState([]);
     const [usuario, setUsuario] = useState(null);
-    const [producto, setProducto] = useState(null);
-    const [fechaCompra, setFechaCompra] = useState(null);
+    const [productosPorId, setProductosPorId] = useState({});
 
     async function traerCompras(){
         try {
@@ -14,7 +13,6 @@ export default function pedidos() {
 
             if(data.success){
                 setCompras(data.compras)
-                console.log(compras)
             }
 
         }catch (error){
@@ -27,7 +25,7 @@ export default function pedidos() {
         const idUsuarioInt = Number(usuarioId);
         console.log(idUsuarioInt)
 
-        const body = {idUsuario: idUsuarioInt}
+        const body = { idUsuarioInt}
 
         try{
             const response = await fetch('https://backend-imperio.vercel.app/comprasUsuario', {
@@ -62,30 +60,51 @@ export default function pedidos() {
             const data = await response.json();
 
             if(data.success){
-                setProducto(data.producto)
+                return data.producto;
             }
+            return null;
 
         }catch (error){
             console.error('Error al traer el producto:', error);
+            return null;
         }
     }
 
-    const fomatearFecha = () => {
-        const fecha = compras.fechaCompra;
-        const fechaFormateada = new Date(fecha).toLocaleDateString('es-ES', {
+    const formatearFecha = (fecha) => {
+        if (!fecha) return 'Fecha no encontrada';
+        const fechaObj = new Date(fecha);
+        if (Number.isNaN(fechaObj.getTime())) return 'Fecha no valida';
+
+        return fechaObj.toLocaleDateString('es-ES', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
         });
-        setFechaCompra(fechaFormateada)
     }
 
     useEffect(()=> {
-        console.log(compras)
         traerCompras();
         datosUsuario();
-        fomatearFecha();
     }, [])
+
+    useEffect(() => {
+        async function cargarProductos() {
+            if (compras.length === 0) return;
+
+            const idsUnicos = [...new Set(compras.map((compra) => Number(compra.idProducto)).filter(Boolean))];
+            const resultados = await Promise.all(idsUnicos.map((id) => traerProductoCompra(id)));
+
+            const productosMap = {};
+            idsUnicos.forEach((id, index) => {
+                if (resultados[index]) {
+                    productosMap[id] = resultados[index];
+                }
+            });
+            setProductosPorId(productosMap);
+        }
+
+        cargarProductos();
+    }, [compras]);
 
     return(
     <div className="SectionsPedidos">
@@ -96,8 +115,8 @@ export default function pedidos() {
             compras.map((compra, index) => (
                 <div key={compra.id ?? `${compra.idUsuario ?? 'u'}-${compra.idProducto ?? 'p'}-${index}`}>
                     <p><strong>Usuario:</strong> {usuario ? usuario.name : 'Usuario no encontrado'}</p>
-                    <p><strong>Producto:</strong> {producto ? producto.name : 'Producto no encontrado'}</p>
-                    <p><strong>Fecha:</strong> {fechaCompra ? fechaCompra : 'Fecha no encontrada'}</p>
+                    <p><strong>Producto:</strong> {productosPorId[Number(compra.idProducto)]?.name ?? 'Producto no encontrado'}</p>
+                    <p><strong>Fecha:</strong> {formatearFecha(compra.fechaCompra)}</p>
                 </div>
             ))
         )}
