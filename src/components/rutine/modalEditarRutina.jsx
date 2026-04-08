@@ -89,10 +89,26 @@ export default function editRutinas({ rutinas, idRutinaEditar, onClose }) {
         console.log("Rutina encontrada para editar:", idRutinaEditar);
     }, [idRutinaEditar]);
 
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = 'unset'; };
+    }, []);
+
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+
+        document.addEventListener("keydown", handleEsc);
+        return () => document.removeEventListener("keydown", handleEsc);
+    }, [onClose]);
+
     if (!rutinaEncontrada) return null;
 
     return createPortal(
-        <div className="modal-wrapper" onClick={onClose}>
+        <div className="modal-overlay" onClick={onClose}>
             <div className="contenidoModalRutinas" onClick={(e) => e.stopPropagation()}>
                 <div className="contenidoModal">
                     <h2>Editar Rutina</h2>

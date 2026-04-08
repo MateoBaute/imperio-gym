@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppContext } from "../../contexts/AppContext";
 import { useContext } from "react";
 
@@ -8,6 +8,17 @@ export default function ModalProd({ product, onClose }) {
     const { isLoggedIn } = useContext(AppContext)
     const [size, setSize] = useState('');
     const [color, setColor] = useState('');
+
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+
+        document.addEventListener("keydown", handleEsc);
+        return () => document.removeEventListener("keydown", handleEsc);
+    }, [onClose]);
 
     async function pagarProducto(id) {
         if (!isLoggedIn) {

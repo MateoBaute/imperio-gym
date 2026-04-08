@@ -75,8 +75,8 @@ export default function RenderRutinas() {
             <p>Planes de entrenamiento pensados por nivel y objetivo</p>
             {admin ? (<button className='btn-rutinas' onClick={() => setShowModal(true)}>Crear Rutina</button>) : null}
 
-            {showModal ? (<ModalRutinas />) : null}
-            {editRutina ? (<ModalEditRutinas rutinas={rutinas} idRutinaEditar={editRutinaId} />) : null}
+            {showModal ? (<ModalRutinas onClose={() => setShowModal(false)} />) : null}
+            {editRutina ? (<ModalEditRutinas rutinas={rutinas} idRutinaEditar={editRutinaId} onClose={() => setEditRutina(false)} />) : null}
 
             <Rutinas enviarId={(id) => seteditRutinaId(id)} activarEdicion={() => setEditRutina(true)} lista={rutinas} />
         </div>

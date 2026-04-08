@@ -1,14 +1,26 @@
 import { createPortal } from "react-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { AppContext } from "../../contexts/AppContext";
+import { useContext } from "react";
 
 export default function ModalCrearProducto({ onClose }) {
-
     const [nombre, setNombre] = useState("");
     const [precio, setPrecio] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [imagen, setImagen] = useState(null);
     const [size, setSize] = useState("");
     const [color, setColor] = useState("");
+
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+
+        document.addEventListener("keydown", handleEsc);
+        return () => document.removeEventListener("keydown", handleEsc);
+    }, [onClose]);
 
     const handleSubmit = async (e) => {
         console.log('Se ejejcutó HandelSubmit');

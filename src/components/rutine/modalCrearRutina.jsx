@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { useState, useEffect } from "react";
 
-export default function ModalCrear() {
+export default function ModalCrear({ onClose }) {
     // 1. ESTADOS
     const [ejerciciosCatalogo, setEjerciciosCatalogo] = useState([]); // Los que vienen de la DB
     const [numEjercicios, setNumEjercicios] = useState(0);
@@ -27,6 +27,17 @@ export default function ModalCrear() {
         document.body.style.overflow = 'hidden';
         return () => { document.body.style.overflow = 'unset'; };
     }, []);
+
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+
+        document.addEventListener("keydown", handleEsc);
+        return () => document.removeEventListener("keydown", handleEsc);
+    }, [onClose]);
 
     // 3. FUNCIONES DE LÓGICA
     const definirCantidad = () => {
@@ -74,8 +85,8 @@ export default function ModalCrear() {
     };
 
     return createPortal(
-        <div className="modal-wrapper">
-            <div className="contenidoModalRutinas">
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="contenidoModalRutinas" onClick={(e) => e.stopPropagation()}>
                 <div className="contenidoModal">
                     <h2>Crear Rutina</h2>
                     <button className="btn-rutinas" onClick={definirCantidad}>
