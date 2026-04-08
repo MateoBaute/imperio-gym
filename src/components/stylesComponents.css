@@ -744,6 +744,55 @@ header {
   width: 100%;
 }
 
+.PedidosSection {
+  display: grid;
+  gap: 1.5rem;
+  padding: 0.5rem 0 1rem;
+}
+
+.PedidosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.25rem;
+}
+
+.PedidoCard {
+  padding: 1.5rem;
+  min-height: 12rem;
+}
+
+.PedidoCard h2 {
+  margin-bottom: 1rem;
+  color: var(--pure-white, #fafafa);
+  font-size: 1.125rem;
+}
+
+.PedidoCard-body {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.PedidoCard-body p {
+  margin: 0;
+  text-align: left;
+  color: var(--text-muted, #a1a1aa);
+}
+
+.PedidoCard-body p strong {
+  color: var(--pure-white, #fafafa);
+}
+
+.empty-state {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: var(--radius-md, 0.5rem);
+  text-align: center;
+  color: var(--text-muted, #a1a1aa);
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;

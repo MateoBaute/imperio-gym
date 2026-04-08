@@ -107,19 +107,29 @@ export default function Pedidos() {
     }, [compras]);
 
     return(
-    <div className="SectionsPedidos">
-        <h1>Pedidos</h1>
-        {compras.length === 0 ? (
-            <p>No hay compras registradas.</p>
-        ) : (
-            compras.map((compra, index) => (
-                <div key={compra.id ?? `${compra.idUsuario ?? 'u'}-${compra.idProducto ?? 'p'}-${index}`}>
-                    <p><strong>Usuario:</strong> {usuario ? usuario.name : 'Usuario no encontrado'}</p>
-                    <p><strong>Producto:</strong> {productosPorId[Number(compra.idProducto)]?.name ?? 'Producto no encontrado'}</p>
-                    <p><strong>Fecha:</strong> {formatearFecha(compra.fechaCompra)}</p>
+        <section className="PedidosSection">
+            <div className="page-header">
+                <h1>Pedidos</h1>
+                <p className="subtitle">Consulta tus compras recientes y revisa los productos solicitados.</p>
+            </div>
+
+            {compras.length === 0 ? (
+                <p className="empty-state">No hay compras registradas.</p>
+            ) : (
+                <div className="PedidosGrid">
+                    {compras.map((compra, index) => (
+                        <article key={compra.id ?? `${compra.idUsuario ?? 'u'}-${compra.idProducto ?? 'p'}-${index}`} className="CardShop PedidoCard">
+                            <h2>Pedido {index + 1}</h2>
+                            <div className="PedidoCard-body">
+                                <p><strong>Usuario:</strong> {usuario ? usuario.name : 'Usuario no encontrado'}</p>
+                                <p><strong>Producto:</strong> {productosPorId[Number(compra.idProducto)]?.name ?? 'Producto no encontrado'}</p>
+                                <p><strong>Fecha:</strong> {formatearFecha(compra.fechaCompra)}</p>
+                                <button className="btn-primary">Eliminar Pedido</button>
+                            </div>
+                        </article>
+                    ))}
                 </div>
-            ))
-        )}
-    </div>
-    
-)}
+            )}
+        </section>
+    )
+}

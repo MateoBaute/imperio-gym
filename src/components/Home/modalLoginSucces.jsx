@@ -7,7 +7,6 @@ export default function ModalLoginSuccess({user}){
                 <div className='contentLogin'>
                     <h1>Welcome to Imerio Gym {user}</h1>
                     <p>You can go to explore the page</p>
-                    
             </div>
         </div>
     )
