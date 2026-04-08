@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 export default function pedidos() {
     const [compras, setCompras] = useState([]);
     const [usuario, setUsuario] = useState(null);
+    const [producto, setProducto] = useState(null);
+    const [fechaCompra, setFechaCompra] = useState(null);
 
     async function traerCompras(){
         try {
@@ -46,9 +48,41 @@ export default function pedidos() {
         }
     }
 
+    async function traerProductoCompra(idProducto){
+        const body = {idProducto: idProducto}
+        try{
+            const response = await fetch('https://backend-imperio.vercel.app/productoCompra', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            const data = await response.json();
+
+            if(data.success){
+                setProducto(data.producto)
+            }
+
+        }catch (error){
+            console.error('Error al traer el producto:', error);
+        }
+    }
+
+    const fomatearFecha = () => {
+        const fecha = compras.fechaCompra;
+        const fechaFormateada = new Date(fecha).toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        setFechaCompra(fechaFormateada)
+    }
+
     useEffect(()=> {
         traerCompras();
         datosUsuario();
+        fomatearFecha();
     }, [])
 
     return(
@@ -60,8 +94,8 @@ export default function pedidos() {
             compras.map((compra, index) => (
                 <div key={compra.id ?? `${compra.idUsuario ?? 'u'}-${compra.idProducto ?? 'p'}-${index}`}>
                     <p><strong>Usuario:</strong> {usuario ? usuario.name : 'Usuario no encontrado'}</p>
-                    <p><strong>Producto:</strong> {compra.idProducto}</p>
-                    <p><strong>Fecha:</strong> {compra.fechaCompra}</p>
+                    <p><strong>Producto:</strong> {producto ? producto.name : 'Producto no encontrado'}</p>
+                    <p><strong>Fecha:</strong> {fechaCompra ? fechaCompra : 'Fecha no encontrada'}</p>
                 </div>
             ))
         )}
