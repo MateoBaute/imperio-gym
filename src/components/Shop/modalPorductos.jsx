@@ -25,10 +25,16 @@ export default function ModalProd({ product, onClose }) {
             alert("Debes iniciar sesión para realizar una compra.");
             return;
         }
-        const precioNumero = parseInt(product.price);
+        const userId = Number(localStorage.getItem('userId'));
+        if (!userId) {
+            alert("No se encontró el usuario. Iniciá sesión de nuevo.");
+            return;
+        }
+
+        const precioNumero = Number(String(product.price).replace(',', '.'));
 
 //Verificación de campos antes de enviar la solicitud
-        if (isNaN(precioNumero)) {
+        if (!Number.isFinite(precioNumero) || precioNumero <= 0) {
             alert("El precio del producto no es un número válido.");
             return;
         }
@@ -43,7 +49,9 @@ export default function ModalProd({ product, onClose }) {
 
         const productoParaPagar = {
             name: `${product.name} (Talle: ${size}, Color: ${color})`,
-            price: product.price, // Asegúrate que sea un número
+            price: precioNumero,
+            idProducto: id,
+            idUsuario: userId,
         };
 
         try {
