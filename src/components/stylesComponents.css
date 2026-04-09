@@ -731,10 +731,10 @@ header {
   background: var(--deep-black, #09090b);
 }
 
-.img-container img {
+.imagenShop {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   margin: 0;
   border-radius: 0;
 }

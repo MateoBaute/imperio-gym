@@ -115,7 +115,7 @@ export default function Products() {
                     <div>
                         <h2>{product.name}</h2>
                         <div className='img-container'>
-                            <img src={`https://backend-imperio.vercel.app/productos/${product.id}/imagen`} />
+                            <img className='imagenShop' src={`https://backend-imperio.vercel.app/productos/${product.id}/imagen`} />
                         </div>
                         <p>{product.description}</p>
                         <p><strong>Precio: ${product.price}</strong></p>
