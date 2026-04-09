@@ -692,6 +692,7 @@ header {
   border-radius: var(--radius-lg, 0.75rem);
   display: flex;
   flex-direction: column;
+  gap: 0.3rem;
   align-items: stretch;
   border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
   transition: border-color 0.2s ease;
@@ -1062,6 +1063,7 @@ header {
   }
 
   .modalForm .btn-primary {
+    margin: 0.5rem;
     width: 100%;
     min-height: var(--touch-min, 2.75rem);
   }
