@@ -104,7 +104,7 @@ export default function ModalProd({ product, onClose }) {
 
                 <h2>{product.name}</h2>
 
-                <img
+                <img className="imagenShop"
                     src={`https://backend-imperio.vercel.app/productos/${product.id}/imagen`}
                     alt={product.name}
                 />
