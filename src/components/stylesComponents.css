@@ -736,7 +736,17 @@ header {
   height: 100%;
   object-fit: fill;
   margin: 0;
-  border-radius: 0;
+  border-radius: 12px;
+}
+
+.imagenModalShop{
+  width: 100%;
+  height: auto;
+  max-height: min(22rem, 55vh);
+  object-fit: cover;
+  margin: 0;
+  border-radius: 12px;
+  display: block;
 }
 
 .CardShop .btn-primary {
@@ -842,8 +852,8 @@ header {
   width: 100%;
   margin: 0 auto 1rem;
   border-radius: var(--radius-md, 0.5rem);
-  object-fit: cover;
-  max-height: min(14rem, 40vh);
+  object-fit: contain;
+  max-height: min(22rem, 55vh);
 }
 
 .modalProds h2 {
