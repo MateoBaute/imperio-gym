@@ -54,7 +54,6 @@ export default function ModalCrearProducto({ onClose }) {
         <div className="modal-overlay" onClick={onClose}>
             <div className="modalForm" onClick={(e) => e.stopPropagation()}>
                     <button onClick={onClose} type="button" className="close-btn">X</button>
-
                 <form onSubmit={handleSubmit}>
                     <h2>Crear Producto</h2>
                     <input type="text" placeholder="Nombre" onChange={(e) => setNombre(e.target.value)} />
