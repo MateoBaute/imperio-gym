@@ -66,8 +66,8 @@ export default function ModalCrearProducto({ onClose }) {
                 return;
             }
 
-            alert("El producto se creó correctamente.");
             onClose?.();
+            alert("El producto se creó correctamente.");
         } catch (error) {
             console.error(error);
             alert(error?.message || "No se pudo conectar con el servidor. Revisa tu conexión.");
