@@ -1,4 +1,4 @@
-
+import Servicios from "../components/nosotros/servicios"
 
 export default function Nosotros() {
   return (
@@ -16,6 +16,8 @@ export default function Nosotros() {
         Priorizamos tu bienestar y un plan claro hacia la transformación que
         buscás, con seguimiento y espacio para resolver dudas en el camino.
       </p>
+
+      <Servicios />
     </div>
   )
 }
