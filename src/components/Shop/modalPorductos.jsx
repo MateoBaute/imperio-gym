@@ -78,9 +78,8 @@ export default function ModalProd({ product, onClose }) {
             const data = await response.json();
 
             if (data.init_point) {
-                // ✅ Ya NO guardamos nada en localStorage ni llamamos a /guardarCompra.
-                // La compra se registra automáticamente en el backend cuando MP
-                // confirma el pago a través del webhook (/webhook/mercadopago).
+                const tokenPago = data.id
+                localStorage.setItem('confirmPaiment', tokenPago)
                 window.location.href = data.init_point;
             } else {
                 alert("No se pudo obtener el link de pago.");

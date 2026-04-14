@@ -69,6 +69,29 @@ export default function Pedidos() {
             return null;
         }
     }
+    async function eliminarPedido(id){
+        try{
+            const response = await fetch('https://backend-imperio.vercel.app/eliminarProducto', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id }),
+            });
+
+            const data = await response.json();
+
+            if(data.success){
+                alert('Producto eliminado correctamente');
+                setCompras((prev) => prev.filter((c) => String(c.id) !== String(id)));
+            }else{
+                alert('Ha ocurrido un problema al eliminar el producto')
+            }
+
+        }catch (error){
+            console.log('error del servidor.', error)
+        }
+    }
 
     const formatearFecha = (fecha) => {
         if (!fecha) return 'Fecha no encontrada';
@@ -124,7 +147,7 @@ export default function Pedidos() {
                                 <p><strong>Usuario:</strong> {usuario ? usuario.name : 'Usuario no encontrado'}</p>
                                 <p><strong>Producto:</strong> {productosPorId[Number(compra.idProducto)]?.name ?? 'Producto no encontrado'}</p>
                                 <p><strong>Fecha:</strong> {formatearFecha(compra.fechaCompra)}</p>
-                                <button className="btn-primary">Eliminar Pedido</button>
+                                <button type="button" className="btn-primary" onClick={() => eliminarPedido(compra.id)}>Eliminar Pedido</button>
                             </div>
                         </article>
                     ))}
