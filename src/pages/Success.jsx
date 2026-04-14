@@ -19,11 +19,11 @@ export default function Success() {
             <p>Gracias por tu compra. Tu pedido ha sido procesado correctamente.</p>
             <p>
                 Pasá por el gimnasio a retirar tu pedido y mostrá este código de referencia:{' '}
-                <strong>
+                <p>
                     {codigoReferencia
-                        ? <p> `   Guardá este código para confirmar tu compra al retirar el producto: ${codigoReferencia}    `</p>
+                        ? <p> Guardá este código para confirmar tu compra al retirar el producto: <strong>{codigoReferencia}</strong></p>
                         :'  ————————  '}
-                </strong>
+                </p>
                 . ¡Gracias por tu compra!
             </p>
         </div>
