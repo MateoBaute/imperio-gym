@@ -76,7 +76,7 @@ export default function Pedidos() {
         }
         
         try{
-            const response = await fetch('https://backend-imperio.vercel.app/eliminarProducto', {
+            const response = await fetch('https://backend-imperio.vercel.app/eliminarPedido', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
