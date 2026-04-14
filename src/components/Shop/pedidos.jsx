@@ -70,6 +70,11 @@ export default function Pedidos() {
         }
     }
     async function eliminarPedido(id){
+        
+        if(!confirm('¿Quieres eliminar este pedido?')){
+            return;
+        }
+        
         try{
             const response = await fetch('https://backend-imperio.vercel.app/eliminarProducto', {
                 method: 'DELETE',
