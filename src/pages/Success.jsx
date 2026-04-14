@@ -21,7 +21,7 @@ export default function Success() {
                 Pasá por el gimnasio a retirar tu pedido y mostrá este código de referencia:{' '}
                 <strong>
                     {codigoReferencia
-                        ? `Guardá este código de referencia para confirmar tu compra al retirar el producto: ${codigoReferencia}`
+                        ? `   Guardá este código para confirmar tu compra al retirar el producto: ${codigoReferencia}    `
                         :'  ————————  '}
                 </strong>
                 . ¡Gracias por tu compra!
