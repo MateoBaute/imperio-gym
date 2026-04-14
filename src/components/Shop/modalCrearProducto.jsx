@@ -1,7 +1,6 @@
 import { createPortal } from "react-dom";
 import { useState, useEffect } from "react";
-import { AppContext } from "../../contexts/AppContext";
-import { useContext } from "react";
+
 
 export default function ModalCrearProducto({ onClose }) {
     const [nombre, setNombre] = useState("");
@@ -41,12 +40,37 @@ export default function ModalCrearProducto({ onClose }) {
                 body: formData
             });
 
-            const data = await res.json();
+            const text = await res.text();
+            let data = {};
+            if (text) {
+                try {
+                    data = JSON.parse(text);
+                } catch {
+                    data = {};
+                }
+            }
             console.log(data);
 
-            onClose();
+            if (!res.ok) {
+                const msg =
+                    data?.message ||
+                    data?.error ||
+                    (text && !text.trim().startsWith("{") ? text.slice(0, 200) : null) ||
+                    `Error al crear el producto (${res.status})`;
+                alert(msg);
+                return;
+            }
+
+            if (data.success === false) {
+                alert(data.message || "No se pudo crear el producto");
+                return;
+            }
+
+            alert("El producto se creó correctamente.");
+            onClose?.();
         } catch (error) {
             console.error(error);
+            alert(error?.message || "No se pudo conectar con el servidor. Revisa tu conexión.");
         }
     };
 
