@@ -19,7 +19,8 @@ export default function Success() {
             <p>Gracias por tu compra. Tu pedido ha sido procesado correctamente.</p>
             <p>
                 Pasá por el gimnasio a retirar tu pedido y mostrá este código de referencia:{' '}
-                <strong>{codigoReferencia || '————————'}</strong>. ¡Gracias por tu compra!
+                <strong>{codigoReferencia || '————————'}</strong>. Guarde este código de referencia para confirmar su compra a 
+                la hora de levantar el producto. ¡Gracias por tu compra!
             </p>
         </div>
     );
