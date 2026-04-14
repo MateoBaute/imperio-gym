@@ -17,15 +17,12 @@ export default function Success() {
         <div className="success-container">
             <h1>¡Pago exitoso!</h1>
             <p>Gracias por tu compra. Tu pedido ha sido procesado correctamente.</p>
-            <p>
-                Pasá por el gimnasio a retirar tu pedido y mostrá este código de referencia:{' '}
                 <p>
                     {codigoReferencia
                         ? <p> Guardá este código para confirmar tu compra al retirar el producto: <strong>{codigoReferencia}</strong></p>
                         :'  ————————  '}
                 </p>
                 . ¡Gracias por tu compra!
-            </p>
         </div>
     );
 }
