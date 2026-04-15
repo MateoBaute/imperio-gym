@@ -25,6 +25,8 @@ export default function ModalCrearProducto({ onClose }) {
         console.log('Se ejejcutó HandelSubmit');
         e.preventDefault();
 
+        onClose();
+
         const formData = new FormData();
         formData.append("nombre", nombre);
         formData.append("precio", precio);
@@ -66,7 +68,6 @@ export default function ModalCrearProducto({ onClose }) {
                 return;
             }
 
-            onClose?.();
             alert("El producto se creó correctamente.");
         } catch (error) {
             console.error(error);
