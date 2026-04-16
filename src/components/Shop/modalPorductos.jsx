@@ -54,7 +54,8 @@ export default function ModalProd({ product, onClose }) {
         ].filter(Boolean).join(', ');
 
         const productoParaPagar = {
-            name: extras ? `${product.name} (${extras})` : product.name,
+            name: product.name,
+            detalles: extras ? `${product.name} (${extras})` : null,
             price: precioNumero,
             idProducto: id,
             idUsuario: userId,
