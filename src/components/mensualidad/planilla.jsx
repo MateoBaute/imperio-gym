@@ -34,10 +34,10 @@ export default function Mensualidades() {
 
             const data = await response.json()
             if(data.success){
-                alert('Usuario registrado con éxito')
+                alert('Mensualidad registrado con éxito')
                 setClientes([...clientes, body])
             } else {
-                alert('Error al registrar usuario')
+                alert('Error al registrar usuario. El usuario puede no estar registrado')
             }
         } catch (error) {
             console.error('Error:', error)
