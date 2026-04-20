@@ -6,7 +6,7 @@ import { AppContext } from '../../contexts/AppContext'
 import { useContext } from 'react'
 
 export default function Header() {
-  const { isLoggedIn, handleLogin } = useContext(AppContext);
+  const { isLoggedIn, handleLogin, admin } = useContext(AppContext);
 
   const [menuOpen, setMenuOpen] = useState(false)
   const routeLocation = useLocation()
@@ -73,7 +73,8 @@ export default function Header() {
           <li><Link to="/nosotros" onClick={() => setMenuOpen(false)}>Nosotros</Link></li>
           <li><Link to="/rutinas" onClick={() => setMenuOpen(false)}>Rutinas</Link></li>
           <li><Link to="/shop" onClick={() => setMenuOpen(false)}>Tienda</Link></li>
-          <li><Link to="/Mensuaidad" onClick={() => setMenuOpen(false)}>Mensuaidad</Link></li>
+          {admin ? (<li><Link to="/Mensuaidad" onClick={() => setMenuOpen(false)}>Mensuaidad</Link></li>) : null }
+          
           {!isLoggedIn ? (
             <li className="header-nav__cta">
               <button type="button" id="btn-Login" className="btn-primary" onClick={() => {setMenuOpen(false); handleLogin();}}>Iniciar Sesion</button>

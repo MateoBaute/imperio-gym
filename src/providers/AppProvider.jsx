@@ -5,12 +5,14 @@ export default function AppProvider({ children }) {
     
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
+  const [admin, setAdmin] = useState(false)
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token === "true") {
       setIsLoggedIn(true);
     }
+    setAdmin(localStorage.getItem("admin") === "true");
   }, []);
 
   const handleLogin = () => {
@@ -26,10 +28,11 @@ export default function AppProvider({ children }) {
     if (localStorage.getItem("token") === "true") {
       setIsLoggedIn(true);
     }
+    setAdmin(localStorage.getItem("admin") === "true");
   }
 
     return (
-        <AppContext.Provider value={{ isLoggedIn, showModal, handleLogin, handleCloseModal }}>
+        <AppContext.Provider value={{ isLoggedIn, showModal, admin, setAdmin, handleLogin, handleCloseModal }}>
             {children}
         </AppContext.Provider>
     )

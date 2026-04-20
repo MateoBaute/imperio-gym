@@ -2,10 +2,14 @@ import Rutinas from './rutinas';
 import { useEffect, useState } from 'react';
 import ModalRutinas from './modalCrearRutina'
 import ModalEditRutinas from './modalEditarRutina'
+import { useContext } from 'react';
+import { AppContext } from '../../contexts/AppContext';
+
 
 export default function RenderRutinas() {
+    const { admin } = useContext(AppContext);
+
     const [rutinas, setRutinas] = useState([]);
-    const [admin, setAdmin] = useState(false);
     const [showModal, setShowModal] = useState(false)
     const [editRutina, setEditRutina] = useState(false)
     const [editRutinaId, seteditRutinaId] = useState(null);
@@ -51,10 +55,6 @@ export default function RenderRutinas() {
 
     useEffect(() => {
         traerRutinas();
-        const adminU = localStorage.getItem('admin');
-        if (adminU === 'true') {
-            setAdmin(true)
-        }
 
         const handleEsc = (e) => {
             if (e.key === 'Escape') {

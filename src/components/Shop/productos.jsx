@@ -8,12 +8,11 @@ import { Link } from 'react-router-dom';
 
 // {productos}
 export default function Products() {
-    const { isLoggedIn } = useContext(AppContext);
+    const { isLoggedIn, admin } = useContext(AppContext);
 
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [agregar, setAgregar] = useState(false);
     const [productos, setProductos] = useState([]);
-    const [admin, setAdmin] = useState(false);
 
 
     async function obtenerProds() {
@@ -84,12 +83,6 @@ export default function Products() {
                 closeModal();
             }
         });
-        const userType = localStorage.getItem('admin');
-        if (userType === 'true') {
-            setAdmin(true);
-        }
-        // console.log(admin, userType);
-        // console.log(productos);
         obtenerProds();
 
 

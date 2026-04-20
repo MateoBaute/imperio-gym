@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { AppContext } from "../../contexts/AppContext";
 
 
 export default function Rutinas({ lista, activarEdicion, enviarId }) {
-    const [admin, setAdmin] = useState(false)
+    const { admin } = useContext(AppContext);
 
     async function eliminarRutina(id) {
         if (!confirm("¿Estás seguro de que quieres eliminar esta rutina?")) return;
@@ -24,14 +25,6 @@ export default function Rutinas({ lista, activarEdicion, enviarId }) {
             console.error("Error de conexión:", error);
         }
     }
-
-    useEffect(() => {
-        const verifiAdmin = localStorage.getItem('admin')
-        if (verifiAdmin === 'true') {
-            setAdmin(true)
-        }
-
-    }, [])
 
     return (
         <div className="contenedor-rutinas">

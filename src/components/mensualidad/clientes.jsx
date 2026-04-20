@@ -10,7 +10,7 @@ export default function Clientes() {
     async function fetchClientes() {
         try {
             setCargando(true);
-            const response = await fetch('http://localhost:3001/api/mensualidad');
+            const response = await fetch('https://backend-imperio.vercel.app/api/mensualidad');
             const data = await response.json();
 
             if (data.success && data.datos) {
