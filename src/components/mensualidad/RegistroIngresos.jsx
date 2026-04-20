@@ -30,7 +30,7 @@ export default function ModalIngresoCliente({ onClose, idUser }) {
         try {
             setCargando(true)
             setError(null)
-            const response = await fetch('http://localhost:3001/usuario/mensualidades', {
+            const response = await fetch('https://backend-imperio.vercel.app/usuario/mensualidades', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id })
