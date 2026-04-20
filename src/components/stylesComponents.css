@@ -11,6 +11,8 @@ header {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  transition: border-color var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1));
 }
 
 .header-nav {
@@ -210,11 +212,16 @@ header {
   margin: 0;
   border-radius: 9999px;
   border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
-  transition: border-color 0.15s ease;
+  transition:
+    border-color var(--motion-fast, 0.18s) ease,
+    transform var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1));
 }
 
 .logo-img:hover {
-  border-color: var(--border-strong, rgba(255, 255, 255, 0.18));
+  border-color: rgba(220, 38, 38, 0.45);
+  transform: scale(1.05);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
 }
 
 #btn-Login {
@@ -286,6 +293,31 @@ header {
     padding: 0.35rem 0;
     font-size: 0.875rem;
   }
+
+  .header-nav__links > li:not(.header-nav__cta) > a {
+    position: relative;
+  }
+
+  .header-nav__links > li:not(.header-nav__cta) > a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: linear-gradient(
+      90deg,
+      var(--primary-red, #dc2626),
+      rgba(220, 38, 38, 0.35)
+    );
+    transition: width var(--motion-normal, 0.28s) var(--motion-ease-spring, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+
+  .header-nav__links > li:not(.header-nav__cta) > a:hover::after,
+  .header-nav__links > li:not(.header-nav__cta) > a:focus-visible::after {
+    width: 100%;
+  }
 }
 
 /* Modal login */
@@ -304,6 +336,11 @@ header {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
+  animation: ui-modal-backdrop-in var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)) forwards;
+}
+
+.modal-wrapper > * {
+  animation: ui-modal-panel-in var(--motion-slow, 0.45s) var(--motion-ease-spring, cubic-bezier(0.16, 1, 0.3, 1)) both;
 }
 
 .modalLogin {
@@ -446,10 +483,14 @@ header {
   font-weight: 600;
   margin: 0 auto 1.5rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition:
+    background-color var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    transform var(--motion-fast, 0.18s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1));
   width: 100%;
   max-width: 22rem;
   box-sizing: border-box;
+  box-shadow: 0 2px 12px rgba(220, 38, 38, 0.2);
 }
 
 @media (min-width: 480px) {
@@ -461,6 +502,12 @@ header {
 
 .btn-rutinas:hover {
   background-color: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+}
+
+.btn-rutinas:active {
+  transform: translateY(0);
 }
 
 #btn-rutinas {
@@ -616,6 +663,16 @@ header {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  transition:
+    border-color var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    transform var(--motion-normal, 0.28s) var(--motion-ease-spring, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.tarjeta-rutina:hover {
+  border-color: rgba(220, 38, 38, 0.22);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
 }
 
 .tarjeta-rutina .btn-primary {
@@ -690,13 +747,19 @@ header {
   flex-direction: column;
   align-items: stretch;
   border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
-  transition: border-color 0.2s ease;
+  transition:
+    border-color var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    transform var(--motion-normal, 0.28s) var(--motion-ease-spring, cubic-bezier(0.16, 1, 0.3, 1));
   cursor: pointer;
 }
 
 .CardShop:hover {
-  border-color: var(--border-strong, rgba(255, 255, 255, 0.14));
-  transform: none;
+  border-color: rgba(220, 38, 38, 0.35);
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(220, 38, 38, 0.12);
 }
 
 .CardShop p {
@@ -733,6 +796,11 @@ header {
   object-fit: fill;
   margin: 0;
   border-radius: 12px;
+  transition: transform var(--motion-slow, 0.45s) var(--motion-ease-spring, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.CardShop:hover .imagenShop {
+  transform: scale(1.04);
 }
 
 .imagenModalShop {
@@ -765,6 +833,19 @@ header {
 .PedidoCard {
   padding: 1.5rem;
   min-height: 12rem;
+  border-radius: var(--radius-lg, 0.75rem);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  background-color: var(--surface-elevated, #141416);
+  transition:
+    border-color var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    transform var(--motion-normal, 0.28s) var(--motion-ease-spring, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.PedidoCard:hover {
+  border-color: rgba(220, 38, 38, 0.28);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.32);
+  transform: translateY(-3px);
 }
 
 .PedidoCard h2 {
@@ -814,6 +895,11 @@ header {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
+  animation: ui-modal-backdrop-in var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)) forwards;
+}
+
+.modal-overlay > * {
+  animation: ui-modal-panel-in var(--motion-slow, 0.45s) var(--motion-ease-spring, cubic-bezier(0.16, 1, 0.3, 1)) both;
 }
 
 .modalProds {
@@ -974,7 +1060,10 @@ header {
   padding: 1.35rem 1.25rem 1.5rem;
   border-radius: var(--radius-lg, 0.75rem);
   border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    transform var(--motion-normal, 0.28s) var(--motion-ease-spring, cubic-bezier(0.16, 1, 0.3, 1));
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -998,7 +1087,8 @@ header {
 
 .serviciosCards:hover {
   border-color: rgba(220, 38, 38, 0.35);
-  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.22);
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.35);
+  transform: translateY(-3px);
 }
 
 .serviciosCards h3 {
@@ -1032,14 +1122,15 @@ header {
   box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.35);
 }
 
+/* Wrapper: sin scroll; el scroll vive en .usuariosMensualidad--ingresos-historial */
 .IngresosCliente{
-  width: 90%;
-  height: 20px;
-  margin: 1rem auto 0 auto;
-  background-color: #262629;
-  border: 1px solid #71717a;
-  border-radius: 12px;
-  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 1rem auto 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-sizing: border-box;
 }
 
 .ingreso-usuario__header {
@@ -1111,6 +1202,79 @@ header {
 
 .ingreso-usuario__acciones .btn-primary {
   min-width: 7rem;
+}
+
+.contenidoModalRegistro{
+  background-color: var(--surface-elevated, #141416);
+  width: 30rem;
+  height: 25rem;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenedorInputs{
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.9rem;
+}
+
+.contenedorInputs input{
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.15));
+  border-radius: 10px;
+  background-color: var(--deep-black, #09090b);
+  color: var(--pure-white, #fafafa);
+  font-size: 0.95rem;
+  line-height: 1.2;
+  box-sizing: border-box;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.contenedorInputs input::placeholder{
+  color: var(--text-muted, #a1a1aa);
+  opacity: 0.9;
+}
+
+.contenedorInputs input:hover{
+  border-color: var(--border-strong, rgba(255, 255, 255, 0.3));
+}
+
+.contenedorInputs input:focus{
+  outline: none;
+  border-color: rgba(220, 38, 38, 0.7);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+  background-color: #0f0f12;
+}
+
+.contenedorInputs input:-webkit-autofill,
+.contenedorInputs input:-webkit-autofill:hover,
+.contenedorInputs input:-webkit-autofill:focus{
+  -webkit-text-fill-color: var(--pure-white, #fafafa);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.input-registro{
+  width: min(28rem, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+}
+
+.input-registro__label{
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted, #a1a1aa);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 @media (min-width: 480px) {
@@ -1214,11 +1378,111 @@ header {
   border: none;
   width: 100%;
   background-color: var(--primary-red);
-  transition: 0.5s ease;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    transform var(--motion-fast, 0.18s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1));
+  box-shadow: 0 2px 12px rgba(220, 38, 38, 0.25);
 }
 
 .buttonMensualidad:hover {
   background-color: #aa1d1d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+}
+
+.buttonMensualidad:active {
+  transform: translateY(0);
+}
+
+/* Página Mensualidades — botón que abre el modal de marcar ingreso */
+.mensualidades {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1rem 2.5rem;
+  box-sizing: border-box;
+}
+
+.mensualidades__marcar-wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1.5rem 0 0;
+  padding: 0 0.15rem;
+}
+
+.btn-marcar-ingreso {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: var(--touch-min, 2.75rem);
+  padding: 0.65rem 1.4rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--pure-white, #fafafa);
+  background: linear-gradient(
+    155deg,
+    rgba(34, 197, 94, 0.12) 0%,
+    rgba(22, 22, 26, 0.98) 45%,
+    rgba(20, 20, 24, 0.99) 100%
+  );
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  border-left-width: 3px;
+  border-left-color: #22c55e;
+  border-radius: var(--radius-md, 0.5rem);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 4px 14px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease,
+    background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-marcar-ingreso::before {
+  content: "";
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234ade80'%3E%3Cpath d='M12 3 4 9v12h16V9l-8-6zm0 2.2 5.9 4.4V19H6v-9.4l6-4.4zM9 14h6v2H9v-2z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.35));
+}
+
+.btn-marcar-ingreso:hover {
+  border-color: rgba(34, 197, 94, 0.55);
+  border-left-color: #4ade80;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 6px 20px rgba(34, 197, 94, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-marcar-ingreso:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-marcar-ingreso:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(34, 197, 94, 0.35),
+    0 4px 14px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 480px) {
+  .btn-marcar-ingreso {
+    width: 100%;
+    max-width: 22rem;
+  }
 }
 
 .usuariosMensualidad {
@@ -1230,6 +1494,59 @@ header {
   margin: 1rem auto;
   padding: 1.125rem;
   box-sizing: border-box;
+}
+
+/* Panel compacto: historial de ingresos dentro del modal (misma caja que planilla) */
+.usuariosMensualidad--ingresos-historial {
+  min-height: auto;
+  margin: 0;
+  padding: 0.875rem 1rem;
+  max-height: min(22rem, 50vh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(220, 38, 38, 0.55) rgba(255, 255, 255, 0.06);
+}
+
+.usuariosMensualidad--ingresos-historial::-webkit-scrollbar {
+  width: 8px;
+}
+
+.usuariosMensualidad--ingresos-historial::-webkit-scrollbar-track {
+  margin: 6px 0;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 9999px;
+}
+
+.usuariosMensualidad--ingresos-historial::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(248, 113, 113, 0.35) 0%,
+    rgba(220, 38, 38, 0.65) 45%,
+    rgba(127, 29, 29, 0.85) 100%
+  );
+  border-radius: 9999px;
+  border: 2px solid rgba(9, 9, 11, 0.85);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.usuariosMensualidad--ingresos-historial::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(252, 165, 165, 0.45) 0%,
+    rgba(220, 38, 38, 0.85) 50%,
+    rgba(185, 28, 28, 0.95) 100%
+  );
+}
+
+.ingresos-historial__list {
+  gap: 0.5rem;
+}
+
+.ingresos-historial__empty {
+  text-align: center;
+  margin: 0.5rem 0 0;
 }
 
 /* ============================================
@@ -1270,12 +1587,16 @@ header {
   border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
   border-left-width: 3px;
   background: var(--surface-elevated, #141416);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow var(--motion-normal, 0.28s) var(--motion-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    transform var(--motion-normal, 0.28s) var(--motion-ease-spring, cubic-bezier(0.16, 1, 0.3, 1));
   flex-wrap: wrap;
 }
 
 .cliente-row:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
 }
 
 .cliente-row--activo {
@@ -1497,5 +1818,63 @@ header {
 
   .cliente-row__field {
     flex: 1 1 100%;
+  }
+}
+
+/* ============================================================
+   Keyframes — modales y overlays (usa variables --motion-* en index.css)
+   ============================================================ */
+@keyframes ui-modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ui-modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay,
+  .modal-overlay > *,
+  .modal-wrapper,
+  .modal-wrapper > * {
+    animation: none !important;
+  }
+
+  .CardShop:hover,
+  .CardShop:hover .imagenShop,
+  .tarjeta-rutina:hover,
+  .serviciosCards:hover,
+  .PedidoCard:hover,
+  .cliente-row:hover,
+  .buttonMensualidad:hover,
+  .buttonMensualidad:active {
+    transform: none !important;
+  }
+
+  .btn-marcar-ingreso:hover,
+  .btn-marcar-ingreso:active {
+    transform: none !important;
+  }
+
+  .btn-rutinas:hover,
+  .btn-rutinas:active {
+    transform: none !important;
+  }
+
+  .logo-img:hover {
+    transform: none !important;
+    box-shadow: none;
   }
 }

@@ -64,7 +64,7 @@ export default function Header() {
           aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} onClick={() => setMenuOpen((o) => !o)}><span className="header-nav__burger" aria-hidden /></button>
 
         {menuOpen ? (
-          <div className="header-nav__backdrop" onClick={() => setMenuOpen(false)}aria-hidden/>
+          <div className="header-nav__backdrop" onClick={() => setMenuOpen(false)} aria-hidden />
         ) : null}
 
         <ul id="primary-navigation" className={`header-nav__links ${menuOpen ? 'is-open' : ''}`}>
@@ -73,32 +73,20 @@ export default function Header() {
           <li><Link to="/nosotros" onClick={() => setMenuOpen(false)}>Nosotros</Link></li>
           <li><Link to="/rutinas" onClick={() => setMenuOpen(false)}>Rutinas</Link></li>
           <li><Link to="/shop" onClick={() => setMenuOpen(false)}>Tienda</Link></li>
-          {admin ? (<li><Link to="/Mensuaidad" onClick={() => setMenuOpen(false)}>Mensuaidad</Link></li>) : null }
-          
+          {admin ?
+          (<li><Link to="/Mensuaidad" onClick={() => setMenuOpen(false)}>Ingresos</Link></li>) : null }
           {!isLoggedIn ? (
             <li className="header-nav__cta">
-              <button type="button" id="btn-Login" className="btn-primary" onClick={() => {setMenuOpen(false); handleLogin();}}>Iniciar Sesion</button>
+              <button type="button" id="btn-Login" className="btn-primary" onClick={() => { setMenuOpen(false); handleLogin(); }}>Iniciar Sesion</button>
             </li>
           ) : (
-            <li
-              onClick={() => {
-                setMenuOpen(false)
-                CloseSession()
-              }}
-              id="CloseSession"
-              role="button"
-              tabIndex={0}
-              className="header-nav__logout"
+            <li onClick={() => { setMenuOpen(false), CloseSession() }} id="CloseSession" role="button" tabIndex={0} className="header-nav__logout"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault()
                   setMenuOpen(false)
                   CloseSession()
-                }
-              }}
-            >
-              Salir
-            </li>
+                }}}>Salir</li>
           )}
         </ul>
       </nav>

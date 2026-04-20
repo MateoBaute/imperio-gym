@@ -20,6 +20,12 @@
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   /* Objetivo táctil mínimo recomendado (WCAG / HIG) */
   --touch-min: 2.75rem;
+  /* Movimiento — coherente en toda la app */
+  --motion-fast: 0.18s;
+  --motion-normal: 0.28s;
+  --motion-slow: 0.45s;
+  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -30,6 +36,12 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 #root {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import RegistroIngresos from './RegistroIngresos'
+import { parseFechaCalendario, formatearFechaCalendario } from "../../utils/fechaCalendario";
 
 export default function Clientes() {
     const [clientes, setClientes] = useState([]);
@@ -19,7 +20,7 @@ export default function Clientes() {
             if (data.success && data.datos) {
                 const clientesMap = {};
                 data.datos.forEach(pago => {
-                    const fechaPagoActual = new Date(pago.fechaPago);
+                    const fechaPagoActual = parseFechaCalendario(pago.fechaPago);
                     if (!clientesMap[pago.cedula] || fechaPagoActual > clientesMap[pago.cedula].fechaPago) {
                         clientesMap[pago.cedula] = {
                             cedula: pago.cedula,
@@ -27,7 +28,7 @@ export default function Clientes() {
                             correo: pago.correo,
                             monto: pago.monto,
                             fechaPago: fechaPagoActual,
-                            fechaVencimiento: new Date(pago.fechaVencimiento),
+                            fechaVencimiento: parseFechaCalendario(pago.fechaVencimiento),
                             id: pago.id
                         };
                     }
@@ -87,13 +88,13 @@ export default function Clientes() {
                                 {/* Último pago */}
                                 <div className="cliente-row__field">
                                     <span className="cliente-row__label">Último pago</span>
-                                    <span className="cliente-row__value">{cliente.fechaPago.toLocaleDateString()}</span>
+                                    <span className="cliente-row__value">{formatearFechaCalendario(cliente.fechaPago)}</span>
                                 </div>
 
                                 {/* Vencimiento + badge */}
                                 <div className="cliente-row__field">
                                     <span className="cliente-row__label">Vencimiento</span>
-                                    <span className="cliente-row__value">{cliente.fechaVencimiento.toLocaleDateString()}</span>
+                                    <span className="cliente-row__value">{formatearFechaCalendario(cliente.fechaVencimiento)}</span>
                                 </div>
 
                                 <span className={`cliente-row__badge ${vencido ? 'badge--vencido' : 'badge--activo'}`}>

@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom"
 import { useEffect, useState } from "react"
 import Ingresos from './ingresos'
+import { formatearFechaCalendario } from "../../utils/fechaCalendario"
 
 export default function ModalIngresoCliente({ onClose, idUser }) {
     const [user, setUser] = useState(null)
@@ -53,13 +54,12 @@ export default function ModalIngresoCliente({ onClose, idUser }) {
         if (valor === null || valor === undefined || valor === "") return "Sin dato";
         if (typeof valor === "boolean") return valor ? "Si" : "No";
         if (valor instanceof Date && !Number.isNaN(valor.getTime())) {
-            return valor.toLocaleDateString("es-ES");
+            return formatearFechaCalendario(valor, "es-ES");
         }
         if (typeof valor === "string") {
-            const fechaParseada = new Date(valor);
             const esFechaISO = /^\d{4}-\d{2}-\d{2}(T.*)?$/.test(valor);
-            if (esFechaISO && !Number.isNaN(fechaParseada.getTime())) {
-                return fechaParseada.toLocaleDateString("es-ES");
+            if (esFechaISO) {
+                return formatearFechaCalendario(valor, "es-ES");
             }
         }
         return String(valor);
@@ -82,7 +82,12 @@ export default function ModalIngresoCliente({ onClose, idUser }) {
     }
 
     const registro = obtenerRegistroPrincipal();
-    const nombreUsuario = registro?.name || registro?.nombre || "Datos del usuario";
+    const nombreUsuario =
+        registro?.name ||
+        registro?.nombre ||
+        registro?.Name ||
+        registro?.nombreCompleto ||
+        "Datos del usuario";
 
     return createPortal(
         <div className="modal-overlay" onClick={onClose}>
@@ -108,9 +113,11 @@ export default function ModalIngresoCliente({ onClose, idUser }) {
                         {renderFila("Fecha de vencimiento", registro.fechaVencimiento)}
                     </div>
                 )}
-                <div className="IngresosCliente">
-                    <Ingresos />
-                </div>
+                {registro && (
+                    <div className="IngresosCliente">
+                        <Ingresos userName={nombreUsuario} />
+                    </div>
+                )}
             </div>
         </div>, document.body
     )

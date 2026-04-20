@@ -10,6 +10,7 @@ export default function Mensualidades() {
     const [fechaPago, setFechaPago] = useState('')
     const [fechaVencimiento, setFechaVencimiento] = useState('')
 
+
     async function ingresarUsuario(){
 
         if(!nombre || !cedula || !correo || !monto || !fechaPago || !fechaVencimiento){
@@ -64,5 +65,6 @@ export default function Mensualidades() {
                 <Clientes />
             </div>
         </div>
+        
     )
 }
