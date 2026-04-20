@@ -72,8 +72,8 @@ export default function Header() {
 
           <li><Link to="/nosotros" onClick={() => setMenuOpen(false)}>Nosotros</Link></li>
           <li><Link to="/rutinas" onClick={() => setMenuOpen(false)}>Rutinas</Link></li>
-          <li><Link to="/shop" onClick={() => setMenuOpen(false)}>Tienda</Link>
-          </li>
+          <li><Link to="/shop" onClick={() => setMenuOpen(false)}>Tienda</Link></li>
+          <li><Link to="/Mensuaidad" onClick={() => setMenuOpen(false)}>Mensuaidad</Link></li>
           {!isLoggedIn ? (
             <li className="header-nav__cta">
               <button type="button" id="btn-Login" className="btn-primary" onClick={() => {setMenuOpen(false); handleLogin();}}>Iniciar Sesion</button>
