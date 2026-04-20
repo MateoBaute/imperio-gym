@@ -11,6 +11,11 @@ export default function Mensualidades() {
     const [fechaVencimiento, setFechaVencimiento] = useState('')
 
     async function ingresarUsuario(){
+
+        if(!nombre || !cedula || !correo || !monto || !fechaPago || !fechaVencimiento){
+            return (alert('Debes completar todos los campos'))
+        }
+
         const body = {
             name: nombre,
             cedula: cedula,

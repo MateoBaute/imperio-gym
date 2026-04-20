@@ -86,17 +86,17 @@ export default function ModalLogin() {
                         
                         <h1>{isRegister ? "Register" : "Login"}</h1>
                         <label>Name:</label>
-                        <input value={name} onChange={(e) => setName(e.target.value)} />
+                        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre Completo" />
 
                         {isRegister && (
                             <>
                                 <label>Email: </label>
-                                <input value={email} onChange={(e) => setEmail(e.target.value)} />
+                                <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
                             </>
                         )}
 
                         <label>Password: </label>
-                        <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} />
+                        <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} placeholder="Contraseña" />
 
                         <button className="btn-primary" onClick={isRegister ? register : login}>
                             {isRegister ? "Register" : "LogIn"}

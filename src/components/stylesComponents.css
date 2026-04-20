@@ -1020,6 +1020,99 @@ header {
   max-width: none;
 }
 
+.contenidoModalIngreso{
+  width: min(40rem, calc(100vw - 2rem));
+  max-width: 100%;
+  background-color: var(--surface-elevated, #141416);
+  padding: 1.35rem;
+  margin: auto;
+  box-sizing: border-box;
+  border-radius: var(--radius-lg, 0.75rem);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.35);
+}
+
+.IngresosCliente{
+  width: 90%;
+  height: 20px;
+  margin: 1rem auto 0 auto;
+  background-color: #262629;
+  border: 1px solid #71717a;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.ingreso-usuario__header {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.ingreso-usuario__titulo {
+  margin: 0;
+  font-size: clamp(1.1rem, 3.4vw, 1.35rem);
+  color: var(--pure-white, #fafafa);
+}
+
+.ingreso-usuario__subtitulo {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted, #a1a1aa);
+}
+
+.ingreso-usuario__estado {
+  margin: 0.65rem 0;
+  color: var(--text-muted, #a1a1aa);
+}
+
+.ingreso-usuario__estado--error {
+  color: var(--primary-red, #dc2626);
+}
+
+.ingreso-usuario__card {
+  background-color: var(--deep-black, #09090b);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: var(--radius-md, 0.5rem);
+  padding: 0.9rem;
+}
+
+.ingreso-usuario__fila {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 10rem) 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ingreso-usuario__fila:last-child {
+  border-bottom: 0;
+}
+
+.ingreso-usuario__etiqueta {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted, #a1a1aa);
+  font-weight: 600;
+}
+
+.ingreso-usuario__valor {
+  font-size: 0.93rem;
+  color: var(--pure-white, #fafafa);
+  word-break: break-word;
+}
+
+.ingreso-usuario__acciones {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ingreso-usuario__acciones .btn-primary {
+  min-width: 7rem;
+}
+
 @media (min-width: 480px) {
   .sizeContainer {
     flex-direction: row;

@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import RegistroIngresos from './RegistroIngresos'
 
 export default function Clientes() {
     const [clientes, setClientes] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
+    const [userId, setUserId] = useState(0);
+    const [show, setShow] = useState(false);
 
     useEffect(() => { fetchClientes(); }, []);
 
@@ -43,13 +46,15 @@ export default function Clientes() {
 
     const hoy = new Date();
 
-    if (cargando) return <div className="clientes-container"><p>Cargando clientes...</p></div>;
+    if (cargando) return <div className="clientes-container"><p>Cargando mensualidades...</p></div>;
     if (error) return <div className="clientes-container"><p className="error">{error}</p></div>;
+
+    const onClose = () => { setShow(false) }
 
     return (
         <div className="clientes-container">
             {clientes.length === 0 ? (
-                <p>No hay clientes registrados</p>
+                <p>No hay mensualidades registradas</p>
             ) : (
                 <div className="clientes-list">
                     {clientes.map((cliente, index) => {
@@ -95,12 +100,22 @@ export default function Clientes() {
                                     {vencido ? 'Vencido' : 'Activo'}
                                 </span>
 
-                                <button className="cliente-row__btn">Ver más</button>
+                                <button
+                                    className="cliente-row__btn"
+                                    onClick={() => {
+                                        setUserId(cliente.id);
+                                        setShow(true);
+                                    }}
+                                >
+                                    Ver más
+                                </button>
                             </div>
                         );
                     })}
                 </div>
             )}
+            {show ? (<RegistroIngresos onClose={onClose} idUser={userId} />) : null}
+            
         </div>
     );
 }
